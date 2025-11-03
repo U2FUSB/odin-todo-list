@@ -2,7 +2,7 @@ import * as pubsub from "./pubsub.js";
 
 const todos = [];
 function createTodo(todo) {
-    const { title, description, isDone, project } = todo;
+    let { title, description, isDone, project } = todo;
     todos.push({
         getTitle: () => {
             return title;
@@ -38,4 +38,6 @@ pubsub.publish("todoCreated", {
     isDone: false,
     project: "project",
 });
+console.log(todos[0].getProject());
+todos[0].setProject("bob")
 console.log(todos[0].getProject());
