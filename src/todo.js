@@ -1,5 +1,9 @@
-export function createTodo(title, description, isDone, project) {
-    return {
+import * as pubsub from "./pubsub.js";
+
+const todos = [];
+function createTodo(todo) {
+    const { title, description, isDone, project } = todo;
+    todos.push({
         getTitle: () => {
             return title;
         },
@@ -24,5 +28,14 @@ export function createTodo(title, description, isDone, project) {
         setProject: (_project) => {
             project = _project;
         },
-    };
+    });
 }
+
+pubsub.subscribe("todoCreated", createTodo);
+pubsub.publish("todoCreated", {
+    title: "title",
+    description: "description",
+    isDone: false,
+    project: "project",
+});
+console.log(todos[0].getProject());
