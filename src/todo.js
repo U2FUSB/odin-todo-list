@@ -31,11 +31,25 @@ function createTodo(todo) {
     });
 }
 function getTodo(title) {
-    const todo = todos.find((todo) => {
+    const todo = findTodoByTitle(title);
+    pubsub.publish("todoDisplayed", todo);
+}
+function updateTodo(todoUpdateObject) {
+    const [title, propertyToUpdate, newValueForProperty] = todoUpdateObject;
+    const todo = findTodoByTitle(title);
+    const propertyUpdateSetter = `set${propertyToUpdate[0].toUpperCase()}${propertyToUpdate
+        .slice(1)
+        .toLowerCase()}`;
+    todo[propertyUpdateSetter](newValueForProperty);
+}
+
+// Utility
+function findTodoByTitle(title) {
+    return todos.find((todo) => {
         return todo.getTitle() === title;
     });
-    pubsub.publish("todoDisplayed", todo);
 }
 
 pubsub.subscribe("todoCreated", createTodo);
 pubsub.subscribe("todoQueried", getTodo);
+pubsub.subscribe("todoUpdated", updateTodo);
