@@ -40,11 +40,16 @@ function updateTodo(todoUpdateObject) {
     const propertyUpdateSetter = `set${propertyToUpdate[0].toUpperCase()}${propertyToUpdate
         .slice(1)
         .toLowerCase()}`;
-    todo[propertyUpdateSetter](newValueForProperty);
+    if (todo !== undefined && todo.hasOwnProperty(propertyUpdateSetter)) {
+        todo[propertyUpdateSetter](newValueForProperty);
+        console.table(todo);
+    }
 }
 function deleteTodo(title) {
     const indexToDelete = todos.findIndex((todo) => todo.getTitle() === title);
-    todos.splice(indexToDelete, 1);
+    if (indexToDelete !== -1) {
+        todos.splice(indexToDelete, 1);
+    }
 }
 
 // Utility

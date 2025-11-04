@@ -7,5 +7,11 @@ domHandler.getTodo("title1");
 domHandler.getTodo("title3");
 domHandler.updateTodoProperty("title1", "project", "project7");
 domHandler.getTodo("title1");
+
+// Breaking stuff tests
 domHandler.deleteTodo("title3");
-// domHandler.getTodo("title3");
+domHandler.deleteTodo("title3");
+domHandler.getTodo(null);
+// domHandler.createTodo("title3", "project2");
+domHandler.updateTodoProperty("title3434", "project", "project7");
+domHandler.updateTodoProperty("title1", "projecttt", "project7");

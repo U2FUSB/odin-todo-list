@@ -3,9 +3,13 @@ export { getTodo, createTodo, updateTodoProperty, deleteTodo };
 
 function displayTodo(todo) {
     console.log("------");
-    console.log(`Title: ${todo.getTitle()}`);
-    console.log(`Description: ${todo.getDescription()}`);
-    console.log(`Assigned to: ${todo.getProject()}`);
+    if (todo === undefined) {
+        console.log("This todo does not exist");
+    } else {
+        console.log(`Title: ${todo.getTitle()}`);
+        console.log(`Description: ${todo.getDescription()}`);
+        console.log(`Assigned to: ${todo.getProject()}`);
+    }
     console.log("------");
 }
 function createTodo(title, project) {
