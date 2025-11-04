@@ -30,14 +30,12 @@ function createTodo(todo) {
         },
     });
 }
+function getTodo(title) {
+    const todo = todos.find((todo) => {
+        return todo.getTitle() === title;
+    });
+    pubsub.publish("todoDisplayed", todo);
+}
 
 pubsub.subscribe("todoCreated", createTodo);
-pubsub.publish("todoCreated", {
-    title: "title",
-    description: "description",
-    isDone: false,
-    project: "project",
-});
-console.log(todos[0].getProject());
-todos[0].setProject("bob")
-console.log(todos[0].getProject());
+pubsub.subscribe("todoQueried", getTodo);
