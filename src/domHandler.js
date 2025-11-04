@@ -1,5 +1,5 @@
 import * as pubsub from "./pubsub.js";
-export { getTodo, createTodo, updateTodo };
+export { getTodo, createTodo, updateTodoProperty, deleteTodo };
 
 function displayTodo(todo) {
     console.log("------");
@@ -7,9 +7,6 @@ function displayTodo(todo) {
     console.log(`Description: ${todo.getDescription()}`);
     console.log(`Assigned to: ${todo.getProject()}`);
     console.log("------");
-}
-function getTodo(title) {
-    pubsub.publish("todoQueried", title);
 }
 function createTodo(title, project) {
     const todo = {
@@ -20,10 +17,15 @@ function createTodo(title, project) {
     };
     pubsub.publish("todoCreated", todo);
 }
-function updateTodo(title, propertyToUpdate, newValueForProperty) {
+function getTodo(title) {
+    pubsub.publish("todoQueried", title);
+}
+function updateTodoProperty(title, propertyToUpdate, newValueForProperty) {
     const todoUpdateObject = [title, propertyToUpdate, newValueForProperty];
     pubsub.publish("todoUpdated", todoUpdateObject);
 }
-function deleteTodo(title) {}
+function deleteTodo(title) {
+    pubsub.publish("todoDeleted", title);
+}
 
 pubsub.subscribe("todoDisplayed", displayTodo);

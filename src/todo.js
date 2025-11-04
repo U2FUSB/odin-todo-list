@@ -42,6 +42,10 @@ function updateTodo(todoUpdateObject) {
         .toLowerCase()}`;
     todo[propertyUpdateSetter](newValueForProperty);
 }
+function deleteTodo(title) {
+    const indexToDelete = todos.findIndex((todo) => todo.getTitle() === title);
+    todos.splice(indexToDelete, 1);
+}
 
 // Utility
 function findTodoByTitle(title) {
@@ -53,3 +57,4 @@ function findTodoByTitle(title) {
 pubsub.subscribe("todoCreated", createTodo);
 pubsub.subscribe("todoQueried", getTodo);
 pubsub.subscribe("todoUpdated", updateTodo);
+pubsub.subscribe("todoDeleted", deleteTodo);
