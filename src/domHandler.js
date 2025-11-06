@@ -9,6 +9,7 @@ function displayTodo(todo) {
         console.log(`Title: ${todo.getTitle()}`);
         console.log(`Description: ${todo.getDescription()}`);
         console.log(`Assigned to: ${todo.getProject()}`);
+        console.log(`Is Done: ${todo.getIsDone()}`);
     }
     console.log("------");
 }
@@ -26,10 +27,17 @@ function getTodo(title) {
 }
 function updateTodoProperty(title, propertyToUpdate, newValueForProperty) {
     const todoUpdateObject = [title, propertyToUpdate, newValueForProperty];
-    publishIfArrayNotEmptyOrUndefined("todoUpdated", todoUpdateObject, [
-        title,
-        propertyToUpdate,
-    ]);
+    if (
+        (propertyToUpdate === "description" &&
+            typeof newValueForProperty === "string") ||
+        (propertyToUpdate === "isDone" &&
+            typeof newValueForProperty === "boolean")
+    ) {
+        publishIfArrayNotEmptyOrUndefined("todoUpdated", todoUpdateObject, [
+            title,
+            propertyToUpdate,
+        ]);
+    }
 }
 function deleteTodo(title) {
     publishIfArrayNotEmptyOrUndefined("todoDeleted", title, [title]);
@@ -46,3 +54,4 @@ function publishIfArrayNotEmptyOrUndefined(eventName, data, arrayToCheck) {
     }
 }
 pubsub.subscribe("todoDisplayed", displayTodo);
+console.log(typeof true)
