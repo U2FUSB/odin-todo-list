@@ -19,17 +19,30 @@ function createTodo(title, project) {
         isDone: false,
         project,
     };
-    pubsub.publish("todoCreated", todo);
+    publishIfArrayNotEmptyOrUndefined("todoCreated", todo, [title, project]);
 }
 function getTodo(title) {
-    pubsub.publish("todoQueried", title);
+    publishIfArrayNotEmptyOrUndefined("todoQueried", title, [title]);
 }
 function updateTodoProperty(title, propertyToUpdate, newValueForProperty) {
     const todoUpdateObject = [title, propertyToUpdate, newValueForProperty];
-    pubsub.publish("todoUpdated", todoUpdateObject);
+    publishIfArrayNotEmptyOrUndefined("todoUpdated", todoUpdateObject, [
+        title,
+        propertyToUpdate,
+    ]);
 }
 function deleteTodo(title) {
-    pubsub.publish("todoDeleted", title);
+    publishIfArrayNotEmptyOrUndefined("todoDeleted", title, [title]);
 }
-
+// Utility
+function publishIfArrayNotEmptyOrUndefined(eventName, data, arrayToCheck) {
+    const elementsAreNotUndefinedOrEmpty = arrayToCheck.every(
+        (elementToCheck) => {
+            return elementToCheck !== undefined && elementToCheck !== "";
+        }
+    );
+    if (elementsAreNotUndefinedOrEmpty) {
+        pubsub.publish(eventName, data);
+    }
+}
 pubsub.subscribe("todoDisplayed", displayTodo);
