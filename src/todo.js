@@ -36,6 +36,13 @@ function getTodo(title) {
     const todo = findTodoByTitle(title);
     pubsub.publish("todoDisplayed", todo);
 }
+function getTodosByProject(project) {
+    todos
+        .filter((todo) => todo.getProject() === project)
+        .forEach((todo) => {
+            pubsub.publish("todoDisplayed", todo);
+        });
+}
 function updateTodo(todoUpdateObject) {
     const [title, propertyToUpdate, newValueForProperty] = todoUpdateObject;
     const todo = findTodoByTitle(title);
@@ -62,3 +69,4 @@ pubsub.subscribe("todoCreated", createTodo);
 pubsub.subscribe("todoQueried", getTodo);
 pubsub.subscribe("todoUpdated", updateTodo);
 pubsub.subscribe("todoDeleted", deleteTodo);
+pubsub.subscribe("todosByProjectQueried", getTodosByProject);

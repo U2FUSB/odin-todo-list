@@ -1,8 +1,14 @@
 import * as pubsub from "./pubsub.js";
-export { getTodo, createTodo, updateTodoProperty, deleteTodo };
+export {
+    getTodo,
+    createTodo,
+    updateTodoProperty,
+    deleteTodo,
+    createProject,
+    getProject,
+};
 
 function displayTodo(todo) {
-    console.log("------");
     if (todo === undefined) {
         console.log("This todo does not exist");
     } else {
@@ -12,6 +18,17 @@ function displayTodo(todo) {
         console.log(`Is Done: ${todo.getIsDone()}`);
     }
     console.log("------");
+}
+function displayProject(project) {
+    console.log("||||||||||||||");
+    if (project === undefined) {
+        console.log("This project does not exist");
+    } else {
+        console.log(`Name: ${project.getName()}`);
+        console.log(`Contained Todos:`);
+        project.getTodos();
+    }
+    console.log("||||||||||||||");
 }
 function createTodo(title, project) {
     const todo = {
@@ -25,7 +42,11 @@ function createTodo(title, project) {
 function getTodo(title) {
     publishIfArrayNotEmptyOrUndefined("todoQueried", title, [title]);
 }
-function updateTodoProperty(title, propertyToUpdate, newValueForProperty) {
+function updateTodoProperty(
+    title,
+    propertyToUpdate,
+    newValueForProperty
+) {
     const todoUpdateObject = [title, propertyToUpdate, newValueForProperty];
     if (
         (propertyToUpdate === "description" &&
@@ -42,6 +63,12 @@ function updateTodoProperty(title, propertyToUpdate, newValueForProperty) {
 function deleteTodo(title) {
     publishIfArrayNotEmptyOrUndefined("todoDeleted", title, [title]);
 }
+function createProject(name) {
+    publishIfArrayNotEmptyOrUndefined("projectCreated", name, [name]);
+}
+function getProject(name) {
+    publishIfArrayNotEmptyOrUndefined("projectQueried", name, [name]);
+}
 // Utility
 function publishIfArrayNotEmptyOrUndefined(eventName, data, arrayToCheck) {
     const elementsAreNotUndefinedOrEmpty = arrayToCheck.every(
@@ -54,4 +81,4 @@ function publishIfArrayNotEmptyOrUndefined(eventName, data, arrayToCheck) {
     }
 }
 pubsub.subscribe("todoDisplayed", displayTodo);
-console.log(typeof true)
+pubsub.subscribe("projectDisplayed", displayProject);
