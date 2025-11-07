@@ -4,11 +4,8 @@ domHandler.createProject("project1");
 
 domHandler.createTodo("title1", "project1");
 domHandler.createTodo("title2", "default");
-domHandler.createTodo("title3", "default");
+domHandler.createTodo("title3", "project1");
 
-domHandler.updateTodoProperty("title1", "description", "some new description");
-
-domHandler.getProject("default");
-// domHandler.getProject("project1");
-domHandler.updateProject("default", "newDefault");
-domHandler.getProject("newDefault");
+domHandler.getProject("project1");
+domHandler.updateProject("project1", "project11");
+domHandler.getProject("project11");

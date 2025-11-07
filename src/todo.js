@@ -59,6 +59,14 @@ function deleteTodo(title) {
         todos.splice(indexToDelete, 1);
     }
 }
+function updateProjectOfTodos(projectUpdateObject) {
+    const { name, newName } = projectUpdateObject;
+    todos
+        .filter((todo) => todo.getProject() === name)
+        .forEach((todo) => {
+            todo.setProject(newName);
+        });
+}
 // Utility
 function findTodoByTitle(title) {
     return todos.find((todo) => {
@@ -70,3 +78,4 @@ pubsub.subscribe("todoQueried", getTodo);
 pubsub.subscribe("todoUpdated", updateTodo);
 pubsub.subscribe("todoDeleted", deleteTodo);
 pubsub.subscribe("todosByProjectQueried", getTodosByProject);
+pubsub.subscribe("projectUpdated", updateProjectOfTodos);
