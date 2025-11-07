@@ -6,6 +6,7 @@ export {
     deleteTodo,
     createProject,
     getProject,
+    updateProject,
 };
 
 function displayTodo(todo) {
@@ -66,8 +67,11 @@ function getProject(name) {
     publishIfArrayNotEmptyOrUndefined("projectQueried", name, [name]);
 }
 function updateProject(name, newName) {
-    const projectUpdateObject = [name, newName];
-    publishIfArrayNotEmptyOrUndefined("projectUpdated", name, [name, newName]);
+    const projectUpdateObject = { name, newName };
+    publishIfArrayNotEmptyOrUndefined("projectUpdated", projectUpdateObject, [
+        name,
+        newName,
+    ]);
 }
 // Utility
 function publishIfArrayNotEmptyOrUndefined(eventName, data, arrayToCheck) {

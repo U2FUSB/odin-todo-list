@@ -6,7 +6,9 @@ domHandler.createTodo("title1", "project1");
 domHandler.createTodo("title2", "default");
 domHandler.createTodo("title3", "default");
 
-domHandler.updateTodoProperty("title1","description","some new description")
+domHandler.updateTodoProperty("title1", "description", "some new description");
 
 domHandler.getProject("default");
-domHandler.getProject("project1");
+// domHandler.getProject("project1");
+domHandler.updateProject("default", "newDefault");
+domHandler.getProject("newDefault");

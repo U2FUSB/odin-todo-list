@@ -11,9 +11,9 @@ function createProject(name) {
             getTodos: function () {
                 pubsub.publish("todosByProjectQueried", name);
             },
-            setName: function (_name){
-                name=_name
-            }
+            setName: function (_name) {
+                name = _name;
+            },
         });
     }
 }
@@ -22,13 +22,10 @@ function getProject(name) {
     pubsub.publish("projectDisplayed", project);
 }
 function updateProject(projectUpdateObject) {
-    const [title, propertyToUpdate, newValueForProperty] = todoUpdateObject;
-    const todo = findTodoByTitle(title);
-    const propertyUpdateSetter = `set${propertyToUpdate[0].toUpperCase()}${propertyToUpdate.slice(
-        1
-    )}`;
-    if (todo !== undefined && todo.hasOwnProperty(propertyUpdateSetter)) {
-        todo[propertyUpdateSetter](newValueForProperty);
+    const { name, newName } = projectUpdateObject;
+    const project = findProjectByName(name);
+    if (project !== undefined) {
+        project.setName(newName);
     }
 }
 
