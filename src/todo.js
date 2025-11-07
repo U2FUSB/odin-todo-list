@@ -28,9 +28,10 @@ function createTodo(todo) {
             },
             setProject: (_project) => {
                 project = _project;
+                pubsub.publish("projectCreated", project);
             },
         });
-        console.log(todos);
+        pubsub.publish("projectCreated", project);
     }
 }
 function getTodo(title) {

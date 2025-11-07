@@ -20,17 +20,6 @@ function displayTodo(todo) {
     }
     console.log("------");
 }
-function displayProject(project) {
-    console.log("||||||||||||||");
-    if (project === undefined) {
-        console.log("This project does not exist");
-    } else {
-        console.log(`Name: ${project.getName()}`);
-        console.log(`Contained Todos:`);
-        project.getTodos();
-    }
-    console.log("||||||||||||||");
-}
 function createTodo(title, project) {
     const todo = {
         title,
@@ -61,6 +50,17 @@ function updateTodoProperty(title, propertyToUpdate, newValueForProperty) {
 }
 function deleteTodo(title) {
     publishIfArrayNotEmptyOrUndefined("todoDeleted", title, [title]);
+}
+function displayProject(project) {
+    console.log("||||||||||||||");
+    if (project === undefined) {
+        console.log("This project does not exist");
+    } else {
+        console.log(`Name: ${project.getName()}`);
+        console.log(`Contained Todos:`);
+        project.getTodos();
+    }
+    console.log("||||||||||||||");
 }
 function createProject(name) {
     publishIfArrayNotEmptyOrUndefined("projectCreated", name, [name]);
