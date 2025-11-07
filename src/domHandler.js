@@ -7,6 +7,7 @@ export {
     createProject,
     getProject,
     updateProject,
+    deleteProject,
 };
 
 function displayTodo(todo) {
@@ -74,6 +75,9 @@ function updateProject(name, newName) {
         name,
         newName,
     ]);
+}
+function deleteProject(name) {
+    publishIfArrayNotEmptyOrUndefined("projectDeleted", name, [name]);
 }
 // Utility
 function publishIfArrayNotEmptyOrUndefined(eventName, data, arrayToCheck) {

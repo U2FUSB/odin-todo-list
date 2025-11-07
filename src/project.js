@@ -28,6 +28,14 @@ function updateProject(projectUpdateObject) {
         project.setName(newName);
     }
 }
+function deleteProject(name) {
+    const indexToDelete = projects.findIndex(
+        (project) => project.getName() === name
+    );
+    if (indexToDelete !== -1) {
+        projects.splice(indexToDelete, 1);
+    }
+}
 
 // Utility
 function findProjectByName(name) {
@@ -39,4 +47,6 @@ function findProjectByName(name) {
 pubsub.subscribe("projectCreated", createProject);
 pubsub.subscribe("projectQueried", getProject);
 pubsub.subscribe("projectUpdated", updateProject);
+pubsub.subscribe("projectDeleted", deleteProject);
+
 createProject("default");
