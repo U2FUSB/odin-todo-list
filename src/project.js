@@ -11,12 +11,25 @@ function createProject(name) {
             getTodos: function () {
                 pubsub.publish("todosByProjectQueried", name);
             },
+            setName: function (_name){
+                name=_name
+            }
         });
     }
 }
 function getProject(name) {
     const project = findProjectByName(name);
     pubsub.publish("projectDisplayed", project);
+}
+function updateProject(projectUpdateObject) {
+    const [title, propertyToUpdate, newValueForProperty] = todoUpdateObject;
+    const todo = findTodoByTitle(title);
+    const propertyUpdateSetter = `set${propertyToUpdate[0].toUpperCase()}${propertyToUpdate.slice(
+        1
+    )}`;
+    if (todo !== undefined && todo.hasOwnProperty(propertyUpdateSetter)) {
+        todo[propertyUpdateSetter](newValueForProperty);
+    }
 }
 
 // Utility
@@ -28,4 +41,5 @@ function findProjectByName(name) {
 
 pubsub.subscribe("projectCreated", createProject);
 pubsub.subscribe("projectQueried", getProject);
+pubsub.subscribe("projectUpdated", updateProject);
 createProject("default");

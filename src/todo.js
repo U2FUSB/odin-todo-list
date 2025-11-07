@@ -44,7 +44,7 @@ function getTodosByProject(project) {
         });
 }
 function updateTodo(todoUpdateObject) {
-    const [title, propertyToUpdate, newValueForProperty] = todoUpdateObject;
+    const { title, propertyToUpdate, newValueForProperty } = todoUpdateObject;
     const todo = findTodoByTitle(title);
     const propertyUpdateSetter = `set${propertyToUpdate[0].toUpperCase()}${propertyToUpdate.slice(
         1

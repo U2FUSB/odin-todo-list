@@ -42,12 +42,8 @@ function createTodo(title, project) {
 function getTodo(title) {
     publishIfArrayNotEmptyOrUndefined("todoQueried", title, [title]);
 }
-function updateTodoProperty(
-    title,
-    propertyToUpdate,
-    newValueForProperty
-) {
-    const todoUpdateObject = [title, propertyToUpdate, newValueForProperty];
+function updateTodoProperty(title, propertyToUpdate, newValueForProperty) {
+    const todoUpdateObject = { title, propertyToUpdate, newValueForProperty };
     if (
         (propertyToUpdate === "description" &&
             typeof newValueForProperty === "string") ||
@@ -68,6 +64,10 @@ function createProject(name) {
 }
 function getProject(name) {
     publishIfArrayNotEmptyOrUndefined("projectQueried", name, [name]);
+}
+function updateProject(name, newName) {
+    const projectUpdateObject = [name, newName];
+    publishIfArrayNotEmptyOrUndefined("projectUpdated", name, [name, newName]);
 }
 // Utility
 function publishIfArrayNotEmptyOrUndefined(eventName, data, arrayToCheck) {
