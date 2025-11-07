@@ -46,10 +46,12 @@ function getTodo(title) {
 function updateTodoProperty(title, propertyToUpdate, newValueForProperty) {
     const todoUpdateObject = { title, propertyToUpdate, newValueForProperty };
     if (
-        (propertyToUpdate === "description" &&
-            typeof newValueForProperty === "string") ||
-        (propertyToUpdate === "isDone" &&
-            typeof newValueForProperty === "boolean")
+        !(
+            (propertyToUpdate === "description" &&
+                typeof newValueForProperty !== "string") ||
+            (propertyToUpdate === "isDone" &&
+                typeof newValueForProperty !== "boolean")
+        )
     ) {
         publishIfArrayNotEmptyOrUndefined("todoUpdated", todoUpdateObject, [
             title,

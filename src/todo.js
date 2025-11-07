@@ -30,6 +30,7 @@ function createTodo(todo) {
                 project = _project;
             },
         });
+        console.log(todos);
     }
 }
 function getTodo(title) {
