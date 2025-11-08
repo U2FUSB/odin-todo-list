@@ -45,6 +45,18 @@ function getTodosByProject(project) {
             pubsub.publish("todoDisplayed", todo);
         });
 }
+function deleteTodosByProject(project) {
+    todos
+        .filter((todo) => todo.getProject() === project)
+        .forEach((todo) => {
+            todos.splice(
+                todos.findIndex(
+                    (_todo) => _todo.getTitle() === todo.getTitle()
+                ),
+                1
+            );
+        });
+}
 function updateTodo(todoUpdateObject) {
     const { title, propertyToUpdate, newValueForProperty } = todoUpdateObject;
     const todo = findTodoByTitle(title);
@@ -80,4 +92,5 @@ pubsub.subscribe("todoQueried", getTodo);
 pubsub.subscribe("todoUpdated", updateTodo);
 pubsub.subscribe("todoDeleted", deleteTodo);
 pubsub.subscribe("todosByProjectQueried", getTodosByProject);
+pubsub.subscribe("todosByProjectDeleted", deleteTodosByProject);
 pubsub.subscribe("projectUpdated", updateProjectOfTodos);

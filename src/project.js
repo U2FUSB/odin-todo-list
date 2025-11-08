@@ -8,10 +8,10 @@ function createProject(name) {
             getName: () => {
                 return name;
             },
-            getTodos: function () {
+            getTodos: () => {
                 pubsub.publish("todosByProjectQueried", name);
             },
-            setName: function (_name) {
+            setName: (_name) => {
                 name = _name;
             },
         });
@@ -34,6 +34,7 @@ function deleteProject(name) {
     );
     if (indexToDelete !== -1) {
         projects.splice(indexToDelete, 1);
+        pubsub.publish("todosByProjectDeleted", name);
     }
 }
 
