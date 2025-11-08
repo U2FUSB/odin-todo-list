@@ -1,7 +1,5 @@
 import * as domHandler from "./domHandler.js";
 
-// domHandler.createProject("project1");
-
 domHandler.createTodo("title1", "project1");
 domHandler.createTodo("title2", "default");
 domHandler.createTodo("title3", "project1");
@@ -10,12 +8,3 @@ domHandler.deleteProject("project1");
 domHandler.getProject("project1");
 domHandler.getTodo("title3");
 domHandler.getTodo("title2");
-
-// domHandler.getProject("project1");
-// domHandler.updateProject("project1", "project11");
-// domHandler.getProject("project11");
-
-// domHandler.updateTodoProperty("title1", "description", "bum");
-// domHandler.updateTodoProperty("title1", "isDone", true);
-// domHandler.updateTodoProperty("title1", "project", "bibo");
-// domHandler.getTodo("title1");
