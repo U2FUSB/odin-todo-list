@@ -32,8 +32,14 @@ function createTodo(todoProperties) {
             },
         };
         todos.push(todo);
+        const derivedTodoProperties = {
+            title: todo.getTitle(),
+            description: todo.getDescription(),
+            isDone: todo.getIsDone(),
+            project: todo.getProject(),
+        };
         pubsub.publish("projectCreated", todo.getProject());
-        // pubsub.publish("todoSaved", todo);
+        pubsub.publish("todoSaved", [todo.getTitle(), derivedTodoProperties]);
     }
 }
 function getTodo(title) {
