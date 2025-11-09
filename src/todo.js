@@ -53,8 +53,9 @@ function updateTodo(todoUpdateObject) {
     const propertyUpdateSetter = `set${propertyToUpdate[0].toUpperCase()}${propertyToUpdate.slice(
         1
     )}`;
-    if (todo !== undefined && todo.hasOwnProperty(propertyUpdateSetter)) {
+    if (todo && todo.hasOwnProperty(propertyUpdateSetter)) {
         todo[propertyUpdateSetter](newValueForProperty);
+        pubsub.publish("todoSaved", [todo.getTitle(), getTodoProperties(todo)]);
     }
 }
 function updateProjectOfTodos(projectUpdateObject) {
@@ -63,6 +64,10 @@ function updateProjectOfTodos(projectUpdateObject) {
         .filter((todo) => todo.getProject() === name)
         .forEach((todo) => {
             todo.setProject(newName);
+            pubsub.publish("todoSaved", [
+                todo.getTitle(),
+                getTodoProperties(todo),
+            ]);
         });
 }
 function deleteTodo(title) {

@@ -37,10 +37,14 @@ function updateTodoProperty(title, propertyToUpdate, newValueForProperty) {
     const todoUpdateObject = { title, propertyToUpdate, newValueForProperty };
     if (
         !(
+            (propertyToUpdate === "title" &&
+                typeof newValueForProperty !== "string") ||
             (propertyToUpdate === "description" &&
                 typeof newValueForProperty !== "string") ||
             (propertyToUpdate === "isDone" &&
-                typeof newValueForProperty !== "boolean")
+                typeof newValueForProperty !== "boolean") ||
+            (propertyToUpdate === "project" &&
+                typeof newValueForProperty !== "string")
         )
     ) {
         publishIfArrayNotEmptyOrUndefined("todoUpdated", todoUpdateObject, [
@@ -71,10 +75,13 @@ function getProject(name) {
 }
 function updateProject(name, newName) {
     const projectUpdateObject = { name, newName };
-    publishIfArrayNotEmptyOrUndefined("projectUpdated", projectUpdateObject, [
-        name,
-        newName,
-    ]);
+    if (typeof newName === "string") {
+        publishIfArrayNotEmptyOrUndefined(
+            "projectUpdated",
+            projectUpdateObject,
+            [name, newName]
+        );
+    }
 }
 function deleteProject(name) {
     publishIfArrayNotEmptyOrUndefined("projectDeleted", name, [name]);
