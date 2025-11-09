@@ -32,14 +32,8 @@ function createTodo(todoProperties) {
             },
         };
         todos.push(todo);
-        const derivedTodoProperties = {
-            title: todo.getTitle(),
-            description: todo.getDescription(),
-            isDone: todo.getIsDone(),
-            project: todo.getProject(),
-        };
         pubsub.publish("projectCreated", todo.getProject());
-        pubsub.publish("todoSaved", [todo.getTitle(), derivedTodoProperties]);
+        pubsub.publish("todoSaved", [todo.getTitle(), getTodoProperties(todo)]);
     }
 }
 function getTodo(title) {
@@ -95,6 +89,15 @@ function findTodoByTitle(title) {
         return todo.getTitle() === title;
     });
 }
+function getTodoProperties(todo) {
+    return {
+        title: todo.getTitle(),
+        description: todo.getDescription(),
+        isDone: todo.getIsDone(),
+        project: todo.getProject(),
+    };
+}
+
 pubsub.subscribe("todoCreated", createTodo);
 pubsub.subscribe("todoQueried", getTodo);
 pubsub.subscribe("todoUpdated", updateTodo);
