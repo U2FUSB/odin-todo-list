@@ -3,8 +3,8 @@ import * as pubsub from "./pubsub.js";
 const projects = [];
 
 function createProject(name) {
-    if (findProjectByName(name) === undefined) {
-        projects.push({
+    if (!findProjectByName(name)) {
+        const project = {
             getName: () => {
                 return name;
             },
@@ -14,7 +14,8 @@ function createProject(name) {
             setName: (_name) => {
                 name = _name;
             },
-        });
+        };
+        projects.push(project);
     }
 }
 function getProject(name) {

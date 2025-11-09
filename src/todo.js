@@ -1,10 +1,10 @@
 import * as pubsub from "./pubsub.js";
 
 const todos = [];
-function createTodo(todo) {
-    let { title, description, isDone, project } = todo;
-    if (findTodoByTitle(title) === undefined) {
-        todos.push({
+function createTodo(todoProperties) {
+    let { title, description, isDone, project } = todoProperties;
+    if (!findTodoByTitle(title)) {
+        const todo = {
             getTitle: () => {
                 return title;
             },
@@ -30,8 +30,10 @@ function createTodo(todo) {
                 project = _project;
                 pubsub.publish("projectCreated", project);
             },
-        });
-        pubsub.publish("projectCreated", project);
+        };
+        todos.push(todo);
+        pubsub.publish("projectCreated", todo.getProject());
+        // pubsub.publish("todoSaved", todo);
     }
 }
 function getTodo(title) {
@@ -45,18 +47,6 @@ function getTodosByProject(project) {
             pubsub.publish("todoDisplayed", todo);
         });
 }
-function deleteTodosByProject(project) {
-    todos
-        .filter((todo) => todo.getProject() === project)
-        .forEach((todo) => {
-            todos.splice(
-                todos.findIndex(
-                    (_todo) => _todo.getTitle() === todo.getTitle()
-                ),
-                1
-            );
-        });
-}
 function updateTodo(todoUpdateObject) {
     const { title, propertyToUpdate, newValueForProperty } = todoUpdateObject;
     const todo = findTodoByTitle(title);
@@ -67,18 +57,30 @@ function updateTodo(todoUpdateObject) {
         todo[propertyUpdateSetter](newValueForProperty);
     }
 }
-function deleteTodo(title) {
-    const indexToDelete = todos.findIndex((todo) => todo.getTitle() === title);
-    if (indexToDelete !== -1) {
-        todos.splice(indexToDelete, 1);
-    }
-}
 function updateProjectOfTodos(projectUpdateObject) {
     const { name, newName } = projectUpdateObject;
     todos
         .filter((todo) => todo.getProject() === name)
         .forEach((todo) => {
             todo.setProject(newName);
+        });
+}
+function deleteTodo(title) {
+    const indexToDelete = todos.findIndex((todo) => todo.getTitle() === title);
+    if (indexToDelete !== -1) {
+        todos.splice(indexToDelete, 1);
+    }
+}
+function deleteTodosByProject(project) {
+    todos
+        .filter((todo) => todo.getProject() === project)
+        .forEach((todo) => {
+            todos.splice(
+                todos.findIndex(
+                    (_todo) => _todo.getTitle() === todo.getTitle()
+                ),
+                1
+            );
         });
 }
 // Utility
