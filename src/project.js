@@ -28,7 +28,7 @@ function getAllProjects() {
 function updateProject(projectUpdateObject) {
     const { name, newName } = projectUpdateObject;
     const project = findProjectByName(name);
-    if (project !== undefined) {
+    if (project) {
         project.setName(newName);
     }
 }
