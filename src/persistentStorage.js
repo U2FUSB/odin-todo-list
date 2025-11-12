@@ -12,6 +12,9 @@ function loadTodos() {
         }
     }
 }
-
-pubsub.subscribe("todoSaved", saveTodo);
+function deleteTodo(title) {
+    localStorage.removeItem(title);
+}
+pubsub.subscribe("todoAddedPersistently", saveTodo);
 pubsub.subscribe("todosLoaded", loadTodos);
+pubsub.subscribe("todoRemovedPersistently", deleteTodo);

@@ -5,5 +5,3 @@ domHandler.createTodo("title2", "default");
 domHandler.createTodo("title3", "project1");
 
 domHandler.updateTodoProperty("title1", "description", "My new description");
-domHandler.getProject("project1");
-domHandler.getAllProjects();

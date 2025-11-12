@@ -34,7 +34,10 @@ function createTodo(todoProperties) {
         };
         todos.push(todo);
         pubsub.publish("projectCreated", todo.getProject());
-        pubsub.publish("todoSaved", [todo.getTitle(), getTodoProperties(todo)]);
+        pubsub.publish("todoAddedPersistently", [
+            todo.getTitle(),
+            getTodoProperties(todo),
+        ]);
     }
 }
 function getTodo(title) {
@@ -56,7 +59,10 @@ function updateTodo(todoUpdateObject) {
     )}`;
     if (todo && todo.hasOwnProperty(propertyUpdateSetter)) {
         todo[propertyUpdateSetter](newValueForProperty);
-        pubsub.publish("todoSaved", [todo.getTitle(), getTodoProperties(todo)]);
+        pubsub.publish("todoAddedPersistently", [
+            todo.getTitle(),
+            getTodoProperties(todo),
+        ]);
     }
 }
 function updateProjectOfTodos(projectUpdateObject) {
@@ -65,7 +71,7 @@ function updateProjectOfTodos(projectUpdateObject) {
         .filter((todo) => todo.getProject() === name)
         .forEach((todo) => {
             todo.setProject(newName);
-            pubsub.publish("todoSaved", [
+            pubsub.publish("todoAddedPersistently", [
                 todo.getTitle(),
                 getTodoProperties(todo),
             ]);
@@ -75,6 +81,7 @@ function deleteTodo(title) {
     const indexToDelete = todos.findIndex((todo) => todo.getTitle() === title);
     if (indexToDelete !== -1) {
         todos.splice(indexToDelete, 1);
+        pubsub.publish("todoRemovedPersistently", title);
     }
 }
 function deleteTodosByProject(project) {
@@ -87,6 +94,7 @@ function deleteTodosByProject(project) {
                 ),
                 1
             );
+            pubsub.publish("todoRemovedPersistently", todo.getTitle());
         });
 }
 // Utility
