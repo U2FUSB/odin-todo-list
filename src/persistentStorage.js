@@ -14,4 +14,4 @@ function loadTodos() {
 }
 
 pubsub.subscribe("todoSaved", saveTodo);
-pubsub.subscribe("loadTodosFromStorage", loadTodos);
+pubsub.subscribe("todosLoaded", loadTodos);

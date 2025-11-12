@@ -4,9 +4,9 @@ export {
     createTodo,
     deleteProject,
     deleteTodo,
+    getAllProjects,
     getProject,
     getTodo,
-    loadTodos,
     updateProject,
     updateTodoProperty,
 };
@@ -74,6 +74,9 @@ function createProject(name) {
 function getProject(name) {
     publishIfArrayNotEmptyOrUndefined("projectQueried", name, [name]);
 }
+function getAllProjects() {
+    pubsub.publish('allProjectsQueried')
+}
 function updateProject(name, newName) {
     const projectUpdateObject = { name, newName };
     if (typeof newName === "string") {
@@ -88,7 +91,7 @@ function deleteProject(name) {
     publishIfArrayNotEmptyOrUndefined("projectDeleted", name, [name]);
 }
 function loadTodos() {
-    pubsub.publish("loadTodosFromStorage");
+    pubsub.publish("todosLoaded");
 }
 // Utility
 function publishIfArrayNotEmptyOrUndefined(eventName, data, arrayToCheck) {

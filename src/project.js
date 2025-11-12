@@ -22,6 +22,9 @@ function getProject(name) {
     const project = findProjectByName(name);
     pubsub.publish("projectDisplayed", project);
 }
+function getAllProjects() {
+    projects.forEach(project => pubsub.publish("projectDisplayed", project))
+}
 function updateProject(projectUpdateObject) {
     const { name, newName } = projectUpdateObject;
     const project = findProjectByName(name);
@@ -48,6 +51,7 @@ function findProjectByName(name) {
 
 pubsub.subscribe("projectCreated", createProject);
 pubsub.subscribe("projectQueried", getProject);
+pubsub.subscribe("allProjectsQueried", getAllProjects);
 pubsub.subscribe("projectUpdated", updateProject);
 pubsub.subscribe("projectDeleted", deleteProject);
 

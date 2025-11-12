@@ -1,6 +1,7 @@
 import * as pubsub from "./pubsub.js";
 
 const todos = [];
+
 function createTodo(todoProperties) {
     let { title, description, isDone, project } = todoProperties;
     if (!findTodoByTitle(title)) {
