@@ -1,13 +1,14 @@
 import * as pubsub from "./pubsub.js";
 export {
-    getTodo,
-    createTodo,
-    updateTodoProperty,
-    deleteTodo,
     createProject,
-    getProject,
-    updateProject,
+    createTodo,
     deleteProject,
+    deleteTodo,
+    getProject,
+    getTodo,
+    loadTodos,
+    updateProject,
+    updateTodoProperty,
 };
 
 function displayTodo(todo) {
@@ -86,6 +87,9 @@ function updateProject(name, newName) {
 function deleteProject(name) {
     publishIfArrayNotEmptyOrUndefined("projectDeleted", name, [name]);
 }
+function loadTodos() {
+    pubsub.publish("loadTodosFromStorage");
+}
 // Utility
 function publishIfArrayNotEmptyOrUndefined(eventName, data, arrayToCheck) {
     const elementsAreNotUndefinedOrEmpty = arrayToCheck.every(
@@ -99,3 +103,4 @@ function publishIfArrayNotEmptyOrUndefined(eventName, data, arrayToCheck) {
 }
 pubsub.subscribe("todoDisplayed", displayTodo);
 pubsub.subscribe("projectDisplayed", displayProject);
+loadTodos();
