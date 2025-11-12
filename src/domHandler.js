@@ -90,9 +90,6 @@ function updateProject(name, newName) {
 function deleteProject(name) {
     publishIfArrayNotEmptyOrUndefined("projectDeleted", name, [name]);
 }
-function loadTodos() {
-    pubsub.publish("todosLoaded");
-}
 // Utility
 function publishIfArrayNotEmptyOrUndefined(eventName, data, arrayToCheck) {
     const elementsAreNotUndefinedOrEmpty = arrayToCheck.every(
@@ -106,5 +103,3 @@ function publishIfArrayNotEmptyOrUndefined(eventName, data, arrayToCheck) {
 }
 pubsub.subscribe("todoDisplayed", displayTodo);
 pubsub.subscribe("projectDisplayed", displayProject);
-
-loadTodos();
