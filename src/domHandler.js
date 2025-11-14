@@ -16,6 +16,7 @@ const domSections = (function () {
     const projectContentPageElement = document.createElement("section");
     const todoPageElement = document.createElement("section");
 
+    dynamicContentElement.dataset.pageRoot = "root";
     projectsPageElement.dataset.pageElement = "projects";
 
     return {
