@@ -10,8 +10,19 @@ export {
     updateProject,
     updateTodoProperty,
 };
+const dynamicContentElement = document.querySelector(".dynamic-content");
 
-function displayTodo(todo) {
+function displayProjectUi(project) {
+    const projectElement = document.createElement("div");
+    projectElement.dataset.projectCard = project.getName();
+    projectElement.textContent = project.getName();
+    dynamicContentElement.append(projectElement);
+}
+function displayTodosInProjectUI() {}
+function displayTodoUi() {}
+function clearUi() {}
+
+function displayTodoConsole(todo) {
     if (todo === undefined) {
         console.log("This todo does not exist");
     } else {
@@ -22,7 +33,8 @@ function displayTodo(todo) {
     }
     console.log("------");
 }
-function displayProject(project) {
+
+function displayProjectConsole(project) {
     console.log("||||||||||||||");
     if (project === undefined) {
         console.log("This project does not exist");
@@ -101,5 +113,8 @@ function publishIfArrayNotEmptyOrUndefined(eventName, data, arrayToCheck) {
         pubsub.publish(eventName, data);
     }
 }
-pubsub.subscribe("todoDisplayed", displayTodo);
-pubsub.subscribe("projectDisplayed", displayProject);
+pubsub.subscribe("todoDisplayed", displayTodoConsole);
+pubsub.subscribe("projectDisplayed", displayProjectConsole);
+pubsub.subscribe("projectDisplayed", displayProjectUi);
+
+getAllProjects();
