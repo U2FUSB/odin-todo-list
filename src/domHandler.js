@@ -10,13 +10,35 @@ export {
     updateProject,
     updateTodoProperty,
 };
-const dynamicContentElement = document.querySelector(".dynamic-content");
+const domSections = (function () {
+    const dynamicContentElement = document.querySelector(".dynamic-content");
+    const projectsPageElement = document.createElement("section");
+    const projectContentPageElement = document.createElement("section");
+    const todoPageElement = document.createElement("section");
 
+    projectsPageElement.dataset.pageElement = "projects";
+
+    return {
+        dynamicContentElement,
+        projectsPageElement,
+        projectContentPageElement,
+        todoPageElement,
+    };
+})();
+
+function initialiseProjectsUi() {
+    clearUi();
+    domSections.dynamicContentElement.appendChild(
+        domSections.projectsPageElement
+    );
+    getAllProjects();
+}
 function displayProjectUi(project) {
+    const pageElement = domSections.projectsPageElement;
     const projectElement = document.createElement("div");
     projectElement.dataset.projectCard = project.getName();
     projectElement.textContent = project.getName();
-    dynamicContentElement.append(projectElement);
+    pageElement.appendChild(projectElement);
 }
 function displayTodosInProjectUI() {}
 function displayTodoUi() {}
@@ -117,4 +139,4 @@ pubsub.subscribe("todoDisplayed", displayTodoConsole);
 pubsub.subscribe("projectDisplayed", displayProjectConsole);
 pubsub.subscribe("projectDisplayed", displayProjectUi);
 
-getAllProjects();
+initialiseProjectsUi();
