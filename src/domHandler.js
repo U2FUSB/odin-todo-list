@@ -16,6 +16,20 @@ const domSections = (function () {
     const projectContentPageElement = document.createElement("section");
     const todoPageElement = document.createElement("section");
 
+    function clearUi() {
+        dynamicContentElement.innerHTML = null;
+    }
+    function initialiseProjectsUi() {
+        clearUi();
+        dynamicContentElement.appendChild(domSections.projectsPageElement);
+        getAllProjects();
+    }
+    function initialiseProjectsContentUi(project) {
+        clearUi();
+        dynamicContentElement.appendChild(projectContentPageElement);
+        getProject(project.getName());
+    }
+
     dynamicContentElement.dataset.pageRoot = "root";
     projectsPageElement.dataset.pageElement = "projects";
 
@@ -24,23 +38,12 @@ const domSections = (function () {
         projectsPageElement,
         projectContentPageElement,
         todoPageElement,
+        clearUi,
+        initialiseProjectsUi,
+        initialiseProjectsContentUi,
     };
 })();
 
-function initialiseProjectsUi() {
-    clearUi();
-    domSections.dynamicContentElement.appendChild(
-        domSections.projectsPageElement
-    );
-    getAllProjects();
-}
-function initialiseProjectsContentUi(project) {
-    clearUi();
-    domSections.dynamicContentElement.appendChild(
-        domSections.projectContentPageElement
-    );
-    getProject(project.getName());
-}
 function displayProjectUi(project) {
     const pageElement = domSections.projectsPageElement;
     const projectElement = document.createElement("div");
@@ -48,14 +51,11 @@ function displayProjectUi(project) {
     projectElement.textContent = project.getName();
     pageElement.appendChild(projectElement);
     projectElement.addEventListener("click", () =>
-        initialiseProjectsContentUi(project)
+        domSections.initialiseProjectsContentUi(project)
     );
 }
 function displayTodosInProjectUI() {}
 function displayTodoUi() {}
-function clearUi() {
-    domSections.dynamicContentElement.innerHTML = null;
-}
 
 function displayTodoConsole(todo) {
     if (todo === undefined) {
@@ -152,4 +152,4 @@ pubsub.subscribe("todoDisplayed", displayTodoConsole);
 // pubsub.subscribe("projectDisplayed", displayProjectConsole);
 pubsub.subscribe("projectDisplayed", displayProjectUi);
 
-initialiseProjectsUi();
+domSections.initialiseProjectsUi();
