@@ -1,6 +1,6 @@
 import * as domHandler from "./domHandler.js";
 // domHandler.createTodo("myTodo", "project1")
-// domHandler.createTodo("myTodo1", "project2")
-// domHandler.createTodo("myTodo3", "project3")
-// domHandler.createTodo("myTodo4", "project4")
-// domHandler.createTodo("myTodo5", "project5")
+// domHandler.createTodo("myTodo10", "project10")
+// domHandler.createTodo("myTodo11", "project11")
+// domHandler.createTodo("myTodo17", "project17")
+// domHandler.createTodo("myTodo12", "project12")

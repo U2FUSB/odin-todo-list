@@ -5,19 +5,22 @@ body,
     height: 100%;
 }
 [data-page-element="projects"] {
-    margin: 5rem;
+    /* margin: 5rem; */
     height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-items: center;
-    gap: 1rem;
+    gap: 1vh;
 }
 [data-project-card] {
-    width: 20rem;
-    height: 5rem;
+    width: 50vw;
+    height: 20vh;
+    font-size: 5rem;
     display: flex;
     align-items: center;
     justify-content: center;
     border: 1px black solid;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
 }
