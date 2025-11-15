@@ -34,16 +34,28 @@ function initialiseProjectsUi() {
     );
     getAllProjects();
 }
+function initialiseProjectsContentUi(project) {
+    clearUi();
+    domSections.dynamicContentElement.appendChild(
+        domSections.projectContentPageElement
+    );
+    getProject(project.getName());
+}
 function displayProjectUi(project) {
     const pageElement = domSections.projectsPageElement;
     const projectElement = document.createElement("div");
     projectElement.dataset.projectCard = project.getName();
     projectElement.textContent = project.getName();
     pageElement.appendChild(projectElement);
+    projectElement.addEventListener("click", () =>
+        initialiseProjectsContentUi(project)
+    );
 }
 function displayTodosInProjectUI() {}
 function displayTodoUi() {}
-function clearUi() {}
+function clearUi() {
+    domSections.dynamicContentElement.innerHTML = null;
+}
 
 function displayTodoConsole(todo) {
     if (todo === undefined) {
@@ -137,7 +149,7 @@ function publishIfArrayNotEmptyOrUndefined(eventName, data, arrayToCheck) {
     }
 }
 pubsub.subscribe("todoDisplayed", displayTodoConsole);
-pubsub.subscribe("projectDisplayed", displayProjectConsole);
+// pubsub.subscribe("projectDisplayed", displayProjectConsole);
 pubsub.subscribe("projectDisplayed", displayProjectUi);
 
 initialiseProjectsUi();
