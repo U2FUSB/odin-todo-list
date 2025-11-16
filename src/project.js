@@ -23,7 +23,8 @@ function getProject(name) {
     pubsub.publish("projectDisplayed", project);
 }
 function getAllProjects() {
-    projects.forEach(project => pubsub.publish("projectDisplayed", project))
+    // projects.forEach(project => pubsub.publish("projectDisplayed", project))
+    pubsub.publish("allProjectsDisplayed", [...projects]);
 }
 function updateProject(projectUpdateObject) {
     const { name, newName } = projectUpdateObject;
