@@ -80,11 +80,12 @@ function displayTodosInProjectUi(todosOfProjectObject) {
     const doneTodos = document.createElement("div");
     const pageSeparator = document.createElement("hr");
 
-    projectName.textContent = project;
     projectName.dataset.projectName = project;
     notDoneTodos.dataset.isDone = false;
     doneTodos.dataset.isDone = true;
     pageSeparator.dataset.separateTodos = "";
+
+    projectName.textContent = project;
 
     todosByProject.forEach((todo) => {
         const todoElement = document.createElement("div");
@@ -105,7 +106,26 @@ function displayTodosInProjectUi(todosOfProjectObject) {
 }
 
 function displayTodoUi(todo) {
+    const pageElement = domSections.todoPageElement;
+    const todoCard = document.createElement("div");
+    const title = document.createElement("h2");
+    const project = document.createElement("p");
+    const description = document.createElement("p");
+    const isDone = document.createElement("p");
 
+    todoCard.dataset.todoCard = todo.getTitle();
+    title.dataset.todoTitle = todo.getTitle();
+    project.dataset.todoProject = todo.getProject();
+    description.dataset.todoDescription = todo.getDescription();
+    isDone.dataset.todoIsDone = todo.getIsDone();
+
+    title.textContent=todo.getTitle();
+    project.textContent=todo.getProject();
+    description.textContent=todo.getDescription();
+    isDone.textContent=todo.getIsDone();
+
+    pageElement.appendChild(todoCard);
+    todoCard.append(...[title, project, description, isDone]);
 }
 
 function displayTodoConsole(todo) {
@@ -208,4 +228,4 @@ pubsub.subscribe("todosOfProjectDisplayed", displayTodosInProjectUi);
 
 domSections.initialiseProjectsUi();
 domSections.initialiseProjectsContentUi("project1");
-domSections.initialiseTodoUi("myTodo1")
+domSections.initialiseTodoUi("myTodo1");
