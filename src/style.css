@@ -5,7 +5,6 @@ body,
     height: 100%;
 }
 [data-page-element="projects"] {
-    /* margin: 5rem; */
     height: auto;
     display: flex;
     flex-direction: column;
@@ -23,4 +22,28 @@ body,
     border: 1px black solid;
     margin-bottom: 1rem;
     margin-top: 1rem;
+}
+[data-page-element="project-content"] {
+    display: flex;
+    flex-direction: column;
+}
+[data-project-name] {
+    align-self: center;
+}
+[data-is-done] {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+[data-is-done="false"] {
+}
+[data-is-done="true"] {
+}
+[data-todo] {
+    padding: 10rem;
+    border: 1px black solid;
+}
+[data-separate-todos] {
+    margin: 1rem 0;
+    border-width: 0.5rem;
 }
