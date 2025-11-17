@@ -1,7 +1,19 @@
 import * as domHandler from "./domHandler.js";
-// domHandler.createTodo("myTodo", "project1")
-// domHandler.createTodo("myTodo10", "project10")
-// domHandler.createTodo("myTodo11", "project11")
-// domHandler.createTodo("myTodo17", "project17")
-// domHandler.createTodo("myTodo15", "project12")
-// domHandler.updateTodoProperty("myTodo15", "isDone",true)
+// domHandler.createTodo("myTodo1", "project1");
+// domHandler.createTodo("myTodo2", "project1");
+// domHandler.createTodo("myTodo3", "project1");
+// domHandler.createTodo("myTodo4", "project1");
+// domHandler.createTodo("myTodo5", "project1");
+// domHandler.createTodo("myTodo7", "project1");
+// domHandler.createTodo("myTodo8", "project1");
+// domHandler.createTodo("myTodo9", "project1");
+// domHandler.createTodo("myTodo11", "project2");
+// domHandler.createTodo("myTodo12", "project2");
+// domHandler.createTodo("myTodo13", "project3");
+// domHandler.createTodo("myTodo14", "project4");
+// domHandler.createTodo("myTodo15", "project4");
+// domHandler.updateTodoProperty("myTodo2", "isDone", true);
+// domHandler.updateTodoProperty("myTodo4", "isDone", true);
+// domHandler.updateTodoProperty("myTodo8", "isDone", true);
+// domHandler.updateTodoProperty("myTodo9", "isDone", true);
+// domHandler.updateTodoProperty("myTodo10", "isDone", true);

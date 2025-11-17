@@ -69,10 +69,13 @@ function displayProjectUi(projects) {
 function displayTodosInProjectUi(todosOfProjectObject) {
     const { project, todosByProject } = todosOfProjectObject;
     const pageElement = domSections.projectContentPageElement;
+    const projectName = document.createElement("h1");
     const notDoneTodos = document.createElement("div");
     const doneTodos = document.createElement("div");
     const pageSeparator = document.createElement("hr");
 
+    projectName.textContent = project;
+    projectName.dataset.projectName = project;
     notDoneTodos.dataset.isDone = false;
     doneTodos.dataset.isDone = true;
     pageSeparator.dataset.separateTodos = "";
@@ -87,11 +90,9 @@ function displayTodosInProjectUi(todosOfProjectObject) {
             doneTodos.appendChild(todoElement);
         }
     });
-    // // loop trough it
-    // //      append each with "todo.getIsDone==false" to notDoneTodos
-    // //      append each with "todo.getIsDone==true" to doneTodos
-
-    pageElement.append(...[notDoneTodos, pageSeparator, doneTodos]);
+    pageElement.append(
+        ...[projectName, notDoneTodos, pageSeparator, doneTodos]
+    );
 }
 
 function displayTodoUi() {}
@@ -195,4 +196,4 @@ pubsub.subscribe("allProjectsDisplayed", displayProjectUi);
 pubsub.subscribe("todosOfProjectDisplayed", displayTodosInProjectUi);
 
 domSections.initialiseProjectsUi();
-domSections.initialiseProjectsContentUi("project12");
+// domSections.initialiseProjectsContentUi("project1");
