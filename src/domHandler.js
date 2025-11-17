@@ -37,6 +37,11 @@ const domSections = (function () {
         dynamicContentElement.appendChild(projectContentPageElement);
         getTodosOfProject(project);
     }
+    function initialiseTodoUi(todo) {
+        clearUi();
+        dynamicContentElement.appendChild(todoPageElement);
+        getTodo(todo);
+    }
 
     dynamicContentElement.dataset.pageRoot = "root";
     projectsPageElement.dataset.pageElement = "projects";
@@ -50,6 +55,7 @@ const domSections = (function () {
         clearUi,
         initialiseProjectsUi,
         initialiseProjectsContentUi,
+        initialiseTodoUi,
     };
 })();
 
@@ -89,13 +95,18 @@ function displayTodosInProjectUi(todosOfProjectObject) {
         } else if (todo.getIsDone() === true) {
             doneTodos.appendChild(todoElement);
         }
+        todoElement.addEventListener("click", () =>
+            domSections.initialiseTodoUi(todo.getTitle())
+        );
     });
     pageElement.append(
         ...[projectName, notDoneTodos, pageSeparator, doneTodos]
     );
 }
 
-function displayTodoUi() {}
+function displayTodoUi(todo) {
+
+}
 
 function displayTodoConsole(todo) {
     if (todo === undefined) {
@@ -191,9 +202,10 @@ function publishIfArrayNotEmptyOrUndefined(eventName, data, arrayToCheck) {
         pubsub.publish(eventName, data);
     }
 }
-pubsub.subscribe("todoDisplayed", displayTodoConsole);
+pubsub.subscribe("todoDisplayed", displayTodoUi);
 pubsub.subscribe("allProjectsDisplayed", displayProjectUi);
 pubsub.subscribe("todosOfProjectDisplayed", displayTodosInProjectUi);
 
 domSections.initialiseProjectsUi();
 domSections.initialiseProjectsContentUi("project1");
+domSections.initialiseTodoUi("myTodo1")
