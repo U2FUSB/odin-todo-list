@@ -23,8 +23,11 @@ function getProject(name) {
     pubsub.publish("projectDisplayed", project);
 }
 function getAllProjects() {
-    // projects.forEach(project => pubsub.publish("projectDisplayed", project))
     pubsub.publish("allProjectsDisplayed", [...projects]);
+}
+function getTodosOfProject(name) {
+    const project = findProjectByName(name);
+    project.getTodos();
 }
 function updateProject(projectUpdateObject) {
     const { name, newName } = projectUpdateObject;
@@ -53,6 +56,7 @@ function findProjectByName(name) {
 pubsub.subscribe("projectCreated", createProject);
 pubsub.subscribe("projectQueried", getProject);
 pubsub.subscribe("allProjectsQueried", getAllProjects);
+pubsub.subscribe("todosOfProjectQueried", getTodosOfProject);
 pubsub.subscribe("projectUpdated", updateProject);
 pubsub.subscribe("projectDeleted", deleteProject);
 

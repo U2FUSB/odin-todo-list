@@ -17,7 +17,15 @@ const domSections = (function () {
     const todoPageElement = document.createElement("section");
 
     function clearUi() {
-        dynamicContentElement.innerHTML = null;
+        while (dynamicContentElement.hasChildNodes()) {
+            clearChildNode(dynamicContentElement.firstChild);
+        }
+        function clearChildNode(childNode) {
+            while (childNode.hasChildNodes()) {
+                clearChildNode(childNode.firstChild);
+            }
+            childNode.parentNode.removeChild(childNode);
+        }
     }
     function initialiseProjectsUi() {
         clearUi();
@@ -27,7 +35,7 @@ const domSections = (function () {
     function initialiseProjectsContentUi(project) {
         clearUi();
         dynamicContentElement.appendChild(projectContentPageElement);
-        getProject(project.getName());
+        getTodosOfProject(project);
     }
 
     dynamicContentElement.dataset.pageRoot = "root";
@@ -53,18 +61,39 @@ function displayProjectUi(projects) {
         projectElement.textContent = project.getName();
         pageElement.appendChild(projectElement);
         projectElement.addEventListener("click", () =>
-            domSections.initialiseProjectsContentUi(project)
+            domSections.initialiseProjectsContentUi(project.getName())
         );
     });
 }
-function displayTodosInProjectUI(project) {
+
+function displayTodosInProjectUi(todosOfProjectObject) {
+    const { project, todosByProject } = todosOfProjectObject;
     const pageElement = domSections.projectContentPageElement;
     const notDoneTodos = document.createElement("div");
     const doneTodos = document.createElement("div");
     const pageSeparator = document.createElement("hr");
 
+    notDoneTodos.dataset.isDone = false;
+    doneTodos.dataset.isDone = true;
+    pageSeparator.dataset.separateTodos = "";
+
+    todosByProject.forEach((todo) => {
+        const todoElement = document.createElement("div");
+        todoElement.dataset.todo = todo.getTitle();
+        todoElement.textContent = todo.getTitle();
+        if (todo.getIsDone() === false) {
+            notDoneTodos.appendChild(todoElement);
+        } else if (todo.getIsDone() === true) {
+            doneTodos.appendChild(todoElement);
+        }
+    });
+    // // loop trough it
+    // //      append each with "todo.getIsDone==false" to notDoneTodos
+    // //      append each with "todo.getIsDone==true" to doneTodos
+
     pageElement.append(...[notDoneTodos, pageSeparator, doneTodos]);
 }
+
 function displayTodoUi() {}
 
 function displayTodoConsole(todo) {
@@ -131,6 +160,9 @@ function createProject(name) {
 function getProject(name) {
     publishIfArrayNotEmptyOrUndefined("projectQueried", name, [name]);
 }
+function getTodosOfProject(name) {
+    publishIfArrayNotEmptyOrUndefined("todosOfProjectQueried", name, [name]);
+}
 function getAllProjects() {
     pubsub.publish("allProjectsQueried");
 }
@@ -160,7 +192,7 @@ function publishIfArrayNotEmptyOrUndefined(eventName, data, arrayToCheck) {
 }
 pubsub.subscribe("todoDisplayed", displayTodoConsole);
 pubsub.subscribe("allProjectsDisplayed", displayProjectUi);
-pubsub.subscribe("projectDisplayed", displayTodosInProjectUI);
+pubsub.subscribe("todosOfProjectDisplayed", displayTodosInProjectUi);
 
 domSections.initialiseProjectsUi();
-// domSections.initialiseProjectsContentUi("project3");
+domSections.initialiseProjectsContentUi("project12");

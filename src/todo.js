@@ -45,11 +45,10 @@ function getTodo(title) {
     pubsub.publish("todoDisplayed", todo);
 }
 function getTodosByProject(project) {
-    todos
-        .filter((todo) => todo.getProject() === project)
-        .forEach((todo) => {
-            pubsub.publish("todoDisplayed", todo);
-        });
+    const todosByProject = todos.filter(
+        (todo) => todo.getProject() === project
+    );
+    pubsub.publish("todosOfProjectDisplayed", { project, todosByProject });
 }
 function updateTodo(todoUpdateObject) {
     const { title, propertyToUpdate, newValueForProperty } = todoUpdateObject;
