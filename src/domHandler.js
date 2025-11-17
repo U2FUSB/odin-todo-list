@@ -33,17 +33,15 @@ const domSections = (function () {
     function switchUi(pressedKey) {
         if (pressedKey === "Escape") {
             switch (dynamicContentElement.firstChild.dataset.pageElement) {
-                case "project-content": {
+                case "project-content":
                     initialiseProjectsUi();
                     break;
-                }
-                case "todo": {
+                case "todo":
                     initialiseProjectsContentUi(
                         dynamicContentElement.firstChild.firstChild.dataset
                             .todoCardProject
                     );
                     break;
-                }
             }
         }
     }
@@ -249,5 +247,5 @@ pubsub.subscribe("allProjectsDisplayed", displayProjectUi);
 pubsub.subscribe("todosOfProjectDisplayed", displayTodosInProjectUi);
 
 domSections.initialiseProjectsUi();
-// domSections.initialiseProjectsContentUi("project1");
-// domSections.initialiseTodoUi("myTodo1");
+domSections.initialiseProjectsContentUi("project1");
+domSections.initialiseTodoUi("myTodo1");
