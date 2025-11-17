@@ -16,6 +16,9 @@ const domSections = (function () {
     const projectContentPageElement = document.createElement("section");
     const todoPageElement = document.createElement("section");
 
+    (function initialiseDocumentEventListeners() {
+        document.addEventListener("keydown", (ev) => switchUi(ev.key));
+    })();
     function clearUi() {
         while (dynamicContentElement.hasChildNodes()) {
             clearChildNode(dynamicContentElement.firstChild);
@@ -25,6 +28,23 @@ const domSections = (function () {
                 clearChildNode(childNode.firstChild);
             }
             childNode.parentNode.removeChild(childNode);
+        }
+    }
+    function switchUi(pressedKey) {
+        if (pressedKey === "Escape") {
+            switch (dynamicContentElement.firstChild.dataset.pageElement) {
+                case "project-content": {
+                    initialiseProjectsUi();
+                    break;
+                }
+                case "todo": {
+                    initialiseProjectsContentUi(
+                        dynamicContentElement.firstChild.firstChild.dataset
+                            .todoCardProject
+                    );
+                    break;
+                }
+            }
         }
     }
     function initialiseProjectsUi() {
@@ -46,6 +66,7 @@ const domSections = (function () {
     dynamicContentElement.dataset.pageRoot = "root";
     projectsPageElement.dataset.pageElement = "projects";
     projectContentPageElement.dataset.pageElement = "project-content";
+    todoPageElement.dataset.pageElement = "todo";
 
     return {
         dynamicContentElement,
@@ -114,15 +135,16 @@ function displayTodoUi(todo) {
     const isDone = document.createElement("p");
 
     todoCard.dataset.todoCard = todo.getTitle();
+    todoCard.dataset.todoCardProject = todo.getProject();
     title.dataset.todoTitle = todo.getTitle();
     project.dataset.todoProject = todo.getProject();
     description.dataset.todoDescription = todo.getDescription();
     isDone.dataset.todoIsDone = todo.getIsDone();
 
-    title.textContent=todo.getTitle();
-    project.textContent=todo.getProject();
-    description.textContent=todo.getDescription();
-    isDone.textContent=todo.getIsDone();
+    title.textContent = todo.getTitle();
+    project.textContent = todo.getProject();
+    description.textContent = todo.getDescription();
+    isDone.textContent = todo.getIsDone();
 
     pageElement.appendChild(todoCard);
     todoCard.append(...[title, project, description, isDone]);
@@ -227,5 +249,5 @@ pubsub.subscribe("allProjectsDisplayed", displayProjectUi);
 pubsub.subscribe("todosOfProjectDisplayed", displayTodosInProjectUi);
 
 domSections.initialiseProjectsUi();
-domSections.initialiseProjectsContentUi("project1");
-domSections.initialiseTodoUi("myTodo1");
+// domSections.initialiseProjectsContentUi("project1");
+// domSections.initialiseTodoUi("myTodo1");
