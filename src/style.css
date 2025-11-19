@@ -4,6 +4,7 @@ body,
 [data-page-element] {
     height: 100%;
 }
+/* projects */
 [data-page-element="projects"] {
     height: auto;
     display: flex;
@@ -23,6 +24,7 @@ body,
     margin-bottom: 1rem;
     margin-top: 1rem;
 }
+/* todos of projects */
 [data-page-element="project-content"] {
     display: flex;
     flex-direction: column;
@@ -46,4 +48,26 @@ body,
 [data-separate-todos] {
     margin: 1rem 0;
     border-width: 0.5rem;
+}
+
+/* todo */
+[data-page-element="todo"] {
+}
+[data-todo-card] {
+}
+[data-todo-title] {
+}
+[data-todo-project] {
+}
+[data-todo-description] {
+}
+[data-todo-is-done] {
+}
+[data-todo-is-done="true"] {
+}
+[data-todo-is-done="false"] {
+}
+[data-todo-project-list] {
+}
+[data-todo-project-list-element] {
 }
