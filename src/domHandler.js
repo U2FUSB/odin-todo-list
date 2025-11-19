@@ -129,7 +129,7 @@ function displayTodoUi(todo) {
     const todoCard = document.createElement("div");
     const title = document.createElement("h2");
     const project = document.createElement("p");
-    const description = document.createElement("p");
+    const description = document.createElement("input");
     const isDone = document.createElement("p");
 
     todoCard.dataset.todoCard = todo.getTitle();
@@ -142,7 +142,7 @@ function displayTodoUi(todo) {
     title.textContent = todo.getTitle();
     project.textContent = todo.getProject();
     description.textContent = todo.getDescription();
-    isDone.textContent = todo.getIsDone();
+    description.placeholder = "Add your Description here"
 
     pageElement.appendChild(todoCard);
     todoCard.append(...[title, project, description, isDone]);

@@ -55,19 +55,15 @@ body,
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
 }
 [data-todo-card] {
     display: flex;
     flex-direction: column;
     align-items: center;
     border: 0.15vw black solid;
-    /* width: 70rem;
-    height: 50rem; */
     width: 70vw;
     height: 90vh;
-    /* margin: 10% auto; */
-    overflow: scroll;
+    overflow-y: scroll;
 }
 [data-todo-title],
 [data-todo-project],
@@ -91,9 +87,11 @@ body,
 }
 [data-todo-is-done] {
 }
-[data-todo-is-done="true"] {
+[data-todo-is-done="true"]::before {
+    content: "Done";
 }
-[data-todo-is-done="false"] {
+[data-todo-is-done="false"]::before {
+    content: "Not Done";
 }
 [data-todo-project-list] {
 }
