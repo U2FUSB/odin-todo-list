@@ -132,13 +132,14 @@ function displayTodoUi(todo) {
     const buttonContainer = document.createElement("div");
     const saveTodo = document.createElement("button");
     const deleteTodo = document.createElement("button");
+    let boolValueOfIsDone = todo.getIsDone();
 
     todoCard.dataset.todoCard = todo.getTitle();
     todoCard.dataset.todoCardProject = todo.getProject();
     title.dataset.todoTitle = todo.getTitle();
     project.dataset.todoProject = todo.getProject();
     description.dataset.todoDescription = todo.getDescription();
-    isDone.dataset.todoIsDone = todo.getIsDone();
+    isDone.dataset.todoIsDone = boolValueOfIsDone;
     saveTodo.dataset.saveTodo = "";
     buttonContainer.dataset.buttonContainer = "";
     deleteTodo.dataset.deleteTodo = "";
@@ -147,15 +148,21 @@ function displayTodoUi(todo) {
     project.value = todo.getProject();
     description.value = todo.getDescription();
     description.placeholder = "Add your Description here";
-    isDone.textContent = todo.getIsDone() ? "Done" : "Not Done";
+    isDone.textContent = boolValueOfIsDone ? "Done" : "Not Done";
     saveTodo.textContent = "Save";
     deleteTodo.textContent = "Delete";
+
+    isDone.addEventListener("click", () => {
+        boolValueOfIsDone = !boolValueOfIsDone;
+        isDone.dataset.todoIsDone = boolValueOfIsDone;
+        isDone.textContent = boolValueOfIsDone ? "Done" : "Not Done";
+    });
 
     saveTodo.addEventListener("click", () => {
         updateTodoProperty(todo.getTitle(), "title", title.value);
         updateTodoProperty(todo.getTitle(), "project", project.value);
         updateTodoProperty(todo.getTitle(), "description", description.value);
-        updateTodoProperty(todo.getTitle(), "isDone", isDone.textContent);
+        updateTodoProperty(todo.getTitle(), "isDone", boolValueOfIsDone);
     });
 
     pageElement.append(todoCard, buttonContainer);
