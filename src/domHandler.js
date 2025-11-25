@@ -131,6 +131,9 @@ function displayTodoUi(todo) {
     const project = document.createElement("input");
     const description = document.createElement("textarea");
     const isDone = document.createElement("p");
+    const buttonContainer = document.createElement("div");
+    const saveTodo = document.createElement("button");
+    const deleteTodo = document.createElement("button");
 
     todoCard.dataset.todoCard = todo.getTitle();
     todoCard.dataset.todoCardProject = todo.getProject();
@@ -138,15 +141,21 @@ function displayTodoUi(todo) {
     project.dataset.todoProject = todo.getProject();
     description.dataset.todoDescription = todo.getDescription();
     isDone.dataset.todoIsDone = todo.getIsDone();
+    saveTodo.dataset.saveTodo = "";
+    buttonContainer.dataset.buttonContainer = "";
+    deleteTodo.dataset.deleteTodo = "";
 
     title.value = todo.getTitle();
     project.value = todo.getProject();
     description.value = todo.getDescription();
     description.placeholder = "Add your Description here";
     isDone.textContent = todo.getIsDone() ? "Done" : "Not Done";
+    saveTodo.textContent = "Save";
+    deleteTodo.textContent = "Delete";
 
-    pageElement.appendChild(todoCard);
-    todoCard.append(...[title, project, description, isDone]);
+    pageElement.append(todoCard, buttonContainer);
+    todoCard.append(title, project, description, isDone);
+    buttonContainer.append(saveTodo, deleteTodo);
 }
 
 function displayTodoConsole(todo) {

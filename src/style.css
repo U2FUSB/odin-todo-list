@@ -55,6 +55,7 @@ body,
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 [data-todo-card] {
     display: flex;
@@ -65,10 +66,7 @@ body,
     height: 90vh;
     overflow-y: scroll;
 }
-[data-todo-title],
-[data-todo-project],
-[data-todo-description],
-[data-todo-is-done] {
+[data-todo-card] > * {
     border: 0.15vw black solid;
     width: 90%;
     max-width: 60vw;
@@ -92,4 +90,20 @@ body,
 [data-todo-project-list] {
 }
 [data-todo-project-list-element] {
+}
+[data-button-container] {
+    display: flex;
+    width: 70vw;
+    height: 5vh;
+    justify-content: space-between;
+    gap: 5vw;
+    padding-top: 1rem;
+}
+[data-button-container] > * {
+    min-width: 15vw;
+}
+[data-save-todo] {
+    flex-grow: 1;
+}
+[data-delete-todo] {
 }
