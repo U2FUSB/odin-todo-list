@@ -130,8 +130,8 @@ function displayTodoUi(todo) {
     const description = document.createElement("textarea");
     const isDone = document.createElement("p");
     const buttonContainer = document.createElement("div");
-    const saveTodo = document.createElement("button");
-    const deleteTodo = document.createElement("button");
+    const saveTodoSwitch = document.createElement("button");
+    const deleteTodoSwitch = document.createElement("button");
     let boolValueOfIsDone = todo.getIsDone();
 
     todoCard.dataset.todoCard = todo.getTitle();
@@ -140,17 +140,17 @@ function displayTodoUi(todo) {
     project.dataset.todoProject = todo.getProject();
     description.dataset.todoDescription = todo.getDescription();
     isDone.dataset.todoIsDone = boolValueOfIsDone;
-    saveTodo.dataset.saveTodo = "";
+    saveTodoSwitch.dataset.saveTodo = "";
     buttonContainer.dataset.buttonContainer = "";
-    deleteTodo.dataset.deleteTodo = "";
+    deleteTodoSwitch.dataset.deleteTodo = "";
 
     title.value = todo.getTitle();
     project.value = todo.getProject();
     description.value = todo.getDescription();
     description.placeholder = "Add your Description here";
     isDone.textContent = boolValueOfIsDone ? "Done" : "Not Done";
-    saveTodo.textContent = "Save";
-    deleteTodo.textContent = "Delete";
+    saveTodoSwitch.textContent = "Save";
+    deleteTodoSwitch.textContent = "Delete";
 
     isDone.addEventListener("click", () => {
         boolValueOfIsDone = !boolValueOfIsDone;
@@ -158,16 +158,24 @@ function displayTodoUi(todo) {
         isDone.textContent = boolValueOfIsDone ? "Done" : "Not Done";
     });
 
-    saveTodo.addEventListener("click", () => {
+    saveTodoSwitch.addEventListener("click", () => {
         updateTodoProperty(todo.getTitle(), "title", title.value);
         updateTodoProperty(todo.getTitle(), "project", project.value);
         updateTodoProperty(todo.getTitle(), "description", description.value);
         updateTodoProperty(todo.getTitle(), "isDone", boolValueOfIsDone);
     });
-
+    deleteTodoSwitch.addEventListener("click", () => {
+        const descision = prompt(
+            `Do you really want to delete ${todo.getTitle()}?\n\nEnter "yes" if you do.`
+        );
+        if (descision === "yes") {
+            deleteTodo(todo.getTitle());
+            domSections.initialiseProjectsContentUi(todo.getProject());
+        }
+    });
     pageElement.append(todoCard, buttonContainer);
     todoCard.append(title, project, description, isDone);
-    buttonContainer.append(saveTodo, deleteTodo);
+    buttonContainer.append(saveTodoSwitch, deleteTodoSwitch);
 }
 
 function displayTodoConsole(todo) {
@@ -270,4 +278,4 @@ pubsub.subscribe("todosOfProjectDisplayed", displayTodosInProjectUi);
 
 domSections.initialiseProjectsUi();
 domSections.initialiseProjectsContentUi("project1");
-domSections.initialiseTodoUi("myTodo1");
+domSections.initialiseTodoUi("myTodo7");
