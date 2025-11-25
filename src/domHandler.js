@@ -126,10 +126,10 @@ function displayTodosInProjectUi(todosOfProjectObject) {
 
 function displayTodoUi(todo) {
     const pageElement = domSections.todoPageElement;
-    const todoCard = document.createElement("div");
-    const title = document.createElement("h2");
-    const project = document.createElement("p");
-    const description = document.createElement("input");
+    const todoCard = document.createElement("form");
+    const title = document.createElement("input");
+    const project = document.createElement("input");
+    const description = document.createElement("textarea");
     const isDone = document.createElement("p");
 
     todoCard.dataset.todoCard = todo.getTitle();
@@ -139,10 +139,11 @@ function displayTodoUi(todo) {
     description.dataset.todoDescription = todo.getDescription();
     isDone.dataset.todoIsDone = todo.getIsDone();
 
-    title.textContent = todo.getTitle();
-    project.textContent = todo.getProject();
-    description.textContent = todo.getDescription();
-    description.placeholder = "Add your Description here"
+    title.value = todo.getTitle();
+    project.value = todo.getProject();
+    description.value = todo.getDescription();
+    description.placeholder = "Add your Description here";
+    isDone.textContent = todo.getIsDone() ? "Done" : "Not Done";
 
     pageElement.appendChild(todoCard);
     todoCard.append(...[title, project, description, isDone]);
