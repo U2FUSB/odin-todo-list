@@ -119,9 +119,7 @@ function displayTodosInProjectUi(todosOfProjectObject) {
             domSections.initialiseTodoUi(todo.getTitle())
         );
     });
-    pageElement.append(
-        ...[projectName, notDoneTodos, pageSeparator, doneTodos]
-    );
+    pageElement.append(projectName, notDoneTodos, pageSeparator, doneTodos);
 }
 
 function displayTodoUi(todo) {
@@ -152,6 +150,13 @@ function displayTodoUi(todo) {
     isDone.textContent = todo.getIsDone() ? "Done" : "Not Done";
     saveTodo.textContent = "Save";
     deleteTodo.textContent = "Delete";
+
+    saveTodo.addEventListener("click", () => {
+        updateTodoProperty(todo.getTitle(), "title", title.value);
+        updateTodoProperty(todo.getTitle(), "project", project.value);
+        updateTodoProperty(todo.getTitle(), "description", description.value);
+        updateTodoProperty(todo.getTitle(), "isDone", isDone.textContent);
+    });
 
     pageElement.append(todoCard, buttonContainer);
     todoCard.append(title, project, description, isDone);
