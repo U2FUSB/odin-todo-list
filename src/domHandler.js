@@ -114,7 +114,13 @@ function displayTodosInProjectUi(todosOfProjectObject) {
     todoCreator.textContent = "CREATE TODO";
     projectDeleter.textContent = "DELETE PROJECT";
 
-    todoCreator.addEventListener("click", () => {});
+    todoCreator.addEventListener("click", () => {
+        const newTodoTitle = prompt(`Choose a title for your new Todo`);
+        if (newTodoTitle !== undefined && newTodoTitle !== "") {
+            createTodo(newTodoTitle, project);
+            domSections.initialiseTodoUi(newTodoTitle);
+        }
+    });
     projectDeleter.addEventListener("click", () => {
         const descision = prompt(
             `Do you really want to delete ${project}?\n\nEnter the projects name, if you do.`
