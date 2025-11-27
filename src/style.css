@@ -29,9 +29,15 @@ body,
     display: flex;
     flex-direction: column;
 }
-[data-project-name] {
-    align-self: center;
+[data-project-page-head] {
+    display: flex;
+    justify-content: space-between;
 }
+[data-project-name] {
+}
+[data-project-deleter] {
+}
+
 [data-is-done] {
     display: flex;
     gap: 1rem;
