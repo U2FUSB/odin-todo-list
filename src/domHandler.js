@@ -96,6 +96,7 @@ function displayTodosInProjectUi(todosOfProjectObject) {
     const pageElement = domSections.projectContentPageElement;
     const projectName = document.createElement("h1");
     const projectDeleter = document.createElement("button");
+    const todoCreator = document.createElement("button");
     const projectPageHead = document.createElement("div");
     const notDoneTodos = document.createElement("div");
     const doneTodos = document.createElement("div");
@@ -103,13 +104,15 @@ function displayTodosInProjectUi(todosOfProjectObject) {
 
     projectName.dataset.projectName = project;
     projectDeleter.dataset.projectDeleter = "";
+    todoCreator.dataset.todoCreator = "";
     projectPageHead.dataset.projectPageHead = "";
     notDoneTodos.dataset.isDone = false;
     doneTodos.dataset.isDone = true;
     pageSeparator.dataset.separateTodos = "";
 
     projectName.textContent = project;
-    projectDeleter.textContent = "DELETE PROJECT"
+    projectDeleter.textContent = "DELETE PROJECT";
+    todoCreator.textContent = "CREATE TODO";
 
     todosByProject.forEach((todo) => {
         const todoElement = document.createElement("div");
@@ -125,7 +128,7 @@ function displayTodosInProjectUi(todosOfProjectObject) {
         );
     });
     pageElement.append(projectPageHead, notDoneTodos, pageSeparator, doneTodos);
-    projectPageHead.append(projectName, projectDeleter);
+    projectPageHead.append(todoCreator, projectName, projectDeleter);
 }
 
 function displayTodoUi(todo) {
