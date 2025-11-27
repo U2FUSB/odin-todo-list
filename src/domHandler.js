@@ -115,7 +115,15 @@ function displayTodosInProjectUi(todosOfProjectObject) {
     projectDeleter.textContent = "DELETE PROJECT";
 
     todoCreator.addEventListener("click", () => {});
-    projectDeleter.addEventListener("click", () => {});
+    projectDeleter.addEventListener("click", () => {
+        const descision = prompt(
+            `Do you really want to delete ${project}?\n\nEnter the projects name, if you do.`
+        );
+        if (descision === project) {
+            deleteProject(project);
+            domSections.initialiseProjectsUi();
+        }
+    });
 
     todosByProject.forEach((todo) => {
         const todoElement = document.createElement("div");
