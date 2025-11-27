@@ -49,7 +49,10 @@ body,
 [data-is-done="true"] {
 }
 [data-todo] {
-    padding: 10rem;
+    width: 10rem;
+    padding: 5rem 1rem;
+    word-wrap: break-word;
+    text-align: center;
     border: 1px black solid;
 }
 [data-separate-todos] {
