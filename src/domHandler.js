@@ -6,9 +6,11 @@ const domSections = (function () {
     const projectsPageElement = document.createElement("section");
     const projectContentPageElement = document.createElement("section");
     const todoPageElement = document.createElement("section");
+    const pageBackArrow = document.createElement("img");
 
     (function initialiseDocumentEventListeners() {
         document.addEventListener("keydown", (ev) => switchUi(ev.key));
+        pageBackArrow.addEventListener("click", () => switchUi("Escape"));
     })();
     function clearUi() {
         while (dynamicContentElement.hasChildNodes()) {
@@ -57,12 +59,14 @@ const domSections = (function () {
     projectsPageElement.dataset.pageElement = "projects";
     projectContentPageElement.dataset.pageElement = "project-content";
     todoPageElement.dataset.pageElement = "todo";
+    pageBackArrow.dataset.pageBackArrow = "";
 
     return {
         dynamicContentElement,
         projectsPageElement,
         projectContentPageElement,
         todoPageElement,
+        pageBackArrow,
         clearUi,
         initialiseProjectsUi,
         initialiseProjectsContentUi,
@@ -86,11 +90,11 @@ function displayProjectUi(projects) {
 function displayTodosInProjectUi(todosOfProjectObject) {
     const { project, todosByProject } = todosOfProjectObject;
     const pageElement = domSections.projectContentPageElement;
+    const pageBackArrow = domSections.pageBackArrow;
     const projectName = document.createElement("h1");
     const projectDeleter = document.createElement("button");
     const todoCreator = document.createElement("button");
     const projectPageHead = document.createElement("div");
-    const pageBackArrow = document.createElement("img");
     const projectPageHeadWithArrow = document.createElement("div");
     const notDoneTodos = document.createElement("div");
     const doneTodos = document.createElement("div");
@@ -103,7 +107,6 @@ function displayTodosInProjectUi(todosOfProjectObject) {
     notDoneTodos.dataset.isDone = false;
     doneTodos.dataset.isDone = true;
     pageSeparator.dataset.separateTodos = "";
-    pageBackArrow.dataset.pageBackArrow = "";
     projectPageHeadWithArrow.dataset.projectPageHeadWithArrow = "";
 
     projectName.textContent = project;
@@ -153,12 +156,14 @@ function displayTodosInProjectUi(todosOfProjectObject) {
 
 function displayTodoUi(todo) {
     const pageElement = domSections.todoPageElement;
+    const pageBackArrow = domSections.pageBackArrow;
     const todoCard = document.createElement("form");
     const title = document.createElement("input");
     const project = document.createElement("input");
     const description = document.createElement("textarea");
     const isDone = document.createElement("p");
     const buttonContainer = document.createElement("div");
+    const buttonContainerWithArrow = document.createElement("div");
     const saveTodoSwitch = document.createElement("button");
     const deleteTodoSwitch = document.createElement("button");
     let boolValueOfIsDone = todo.getIsDone();
@@ -171,6 +176,7 @@ function displayTodoUi(todo) {
     isDone.dataset.todoIsDone = boolValueOfIsDone;
     saveTodoSwitch.dataset.saveTodo = "";
     buttonContainer.dataset.buttonContainer = "";
+    buttonContainerWithArrow.dataset.buttonContainerWithArrow = "";
     deleteTodoSwitch.dataset.deleteTodo = "";
 
     title.value = todo.getTitle();
@@ -202,8 +208,9 @@ function displayTodoUi(todo) {
             domSections.initialiseProjectsContentUi(todo.getProject());
         }
     });
-    pageElement.append(todoCard, buttonContainer);
+    pageElement.append(todoCard, buttonContainerWithArrow);
     todoCard.append(title, project, description, isDone);
+    buttonContainerWithArrow.append(pageBackArrow, buttonContainer);
     buttonContainer.append(saveTodoSwitch, deleteTodoSwitch);
 }
 
@@ -284,3 +291,4 @@ pubsub.subscribe("todosOfProjectDisplayed", displayTodosInProjectUi);
 
 domSections.initialiseProjectsUi();
 domSections.initialiseProjectsContentUi("project1");
+domSections.initialiseTodoUi("myTodo10");

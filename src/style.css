@@ -42,9 +42,6 @@ body,
 }
 [data-page-back-arrow] {
     width: 5rem;
-    flex-grow: 0;
-    margin-right: 0;
-    padding-right: 0;
 }
 [data-project-name] {
 }
@@ -119,12 +116,19 @@ body,
     height: 5vh;
     justify-content: space-between;
     gap: 5vw;
+}
+[data-button-container-with-arrow] {
+    display: flex;
+    width: 70vw;
+    height: 5vh;
+    gap: 5vw;
     padding-top: 1rem;
+    justify-content: space-between;
 }
 [data-button-container] > * {
-    min-width: 15vw;
 }
 [data-save-todo] {
+    min-width: 15vw;
     flex-grow: 1;
 }
 [data-delete-todo] {
