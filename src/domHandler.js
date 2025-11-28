@@ -1,4 +1,5 @@
 import * as pubsub from "./pubsub.js";
+import arrow from "./arrow.svg";
 
 const domSections = (function () {
     const dynamicContentElement = document.querySelector(".dynamic-content");
@@ -89,6 +90,8 @@ function displayTodosInProjectUi(todosOfProjectObject) {
     const projectDeleter = document.createElement("button");
     const todoCreator = document.createElement("button");
     const projectPageHead = document.createElement("div");
+    const pageBackArrow = document.createElement("img");
+    const projectPageHeadWithArrow = document.createElement("div");
     const notDoneTodos = document.createElement("div");
     const doneTodos = document.createElement("div");
     const pageSeparator = document.createElement("hr");
@@ -100,10 +103,13 @@ function displayTodosInProjectUi(todosOfProjectObject) {
     notDoneTodos.dataset.isDone = false;
     doneTodos.dataset.isDone = true;
     pageSeparator.dataset.separateTodos = "";
+    pageBackArrow.dataset.pageBackArrow = "";
+    projectPageHeadWithArrow.dataset.projectPageHeadWithArrow = "";
 
     projectName.textContent = project;
     todoCreator.textContent = "CREATE OR FIND TODO";
     projectDeleter.textContent = "DELETE PROJECT";
+    pageBackArrow.src = arrow;
 
     todoCreator.addEventListener("click", () => {
         const newTodoTitle = prompt(`Choose a title for your Todo`);
@@ -135,7 +141,13 @@ function displayTodosInProjectUi(todosOfProjectObject) {
             domSections.initialiseTodoUi(todo.getTitle())
         );
     });
-    pageElement.append(projectPageHead, notDoneTodos, pageSeparator, doneTodos);
+    pageElement.append(
+        projectPageHeadWithArrow,
+        notDoneTodos,
+        pageSeparator,
+        doneTodos
+    );
+    projectPageHeadWithArrow.append(pageBackArrow, projectPageHead);
     projectPageHead.append(todoCreator, projectName, projectDeleter);
 }
 
