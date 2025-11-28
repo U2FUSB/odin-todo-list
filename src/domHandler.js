@@ -111,11 +111,11 @@ function displayTodosInProjectUi(todosOfProjectObject) {
     pageSeparator.dataset.separateTodos = "";
 
     projectName.textContent = project;
-    todoCreator.textContent = "CREATE TODO";
+    todoCreator.textContent = "CREATE OR FIND TODO";
     projectDeleter.textContent = "DELETE PROJECT";
 
     todoCreator.addEventListener("click", () => {
-        const newTodoTitle = prompt(`Choose a title for your new Todo`);
+        const newTodoTitle = prompt(`Choose a title for your Todo`);
         if (newTodoTitle !== undefined && newTodoTitle !== "") {
             createTodo(newTodoTitle, project);
             domSections.initialiseTodoUi(newTodoTitle);
