@@ -56,7 +56,11 @@ function updateTodo(todoUpdateObject) {
     const propertyUpdateSetter = `set${propertyToUpdate[0].toUpperCase()}${propertyToUpdate.slice(
         1
     )}`;
-    if (todo && todo.hasOwnProperty(propertyUpdateSetter)) {
+    if (
+        todo &&
+        todo.hasOwnProperty(propertyUpdateSetter) &&
+        !(propertyToUpdate === "title" && findTodoByTitle(newValueForProperty))
+    ) {
         todo[propertyUpdateSetter](newValueForProperty);
         pubsub.publish("todoAddedPersistently", [
             todo.getTitle(),
