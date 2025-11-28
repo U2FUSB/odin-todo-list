@@ -31,16 +31,18 @@ const domSections = (function () {
         }
     }
     function switchUi(pressedKey) {
+        const pageElement = dynamicContentElement.firstChild;
         if (pressedKey === "Escape") {
-            switch (dynamicContentElement.firstChild.dataset.pageElement) {
+            switch (pageElement.dataset.pageElement) {
                 case "project-content":
                     initialiseProjectsUi();
                     break;
                 case "todo":
-                    initialiseProjectsContentUi(
-                        dynamicContentElement.firstChild.firstChild.dataset
-                            .todoCardProject
-                    );
+                    const projectName = document.querySelector([
+                        "[data-todo-project]",
+                    ]);
+                    console.log(projectName);
+                    initialiseProjectsContentUi(projectName.value);
                     break;
             }
         }
