@@ -290,5 +290,3 @@ pubsub.subscribe("allProjectsDisplayed", displayProjectUi);
 pubsub.subscribe("todosOfProjectDisplayed", displayTodosInProjectUi);
 
 domSections.initialiseProjectsUi();
-domSections.initialiseProjectsContentUi("project1");
-domSections.initialiseTodoUi("myTodo10");

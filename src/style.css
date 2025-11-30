@@ -4,6 +4,24 @@ body,
 [data-page-element] {
     height: 100%;
 }
+:root {
+    --text-color: black;
+    --primary-background-color: rgb(133, 131, 255);
+    --border-width: 0.5vw;
+    --halved-border-width: calc(var(--border-width) / 2);
+    --quater-border-width: calc(var(--halved-border-width) / 2);
+    --border-style: outset;
+    --border-color: rgb(2, 4, 146);
+    --border-radius: 1rem;
+}
+body {
+    background-color: var(--primary-background-color);
+}
+button {
+    border: var(--halved-border-width), var(--border-color), var(--border-style);
+    border-radius: var(--border-radius);
+    background-color: var(--primary-background-color);
+}
 /* projects */
 [data-page-element="projects"] {
     height: auto;
@@ -14,15 +32,16 @@ body,
     gap: 1vh;
 }
 [data-project-card] {
-    width: 50vw;
-    height: 20vh;
+    width: 30rem;
+    height: 10rem;
     font-size: 5rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px black solid;
     margin-bottom: 1rem;
     margin-top: 1rem;
+    border: var(--border-width), var(--border-color), var(--border-style);
+    border-radius: var(--border-radius);
 }
 /* todos of projects */
 [data-page-element="project-content"] {
@@ -45,6 +64,7 @@ body,
 }
 [data-project-name] {
 }
+[data-todo-creator],
 [data-project-deleter] {
 }
 
@@ -62,11 +82,13 @@ body,
     padding: 5rem 1rem;
     word-wrap: break-word;
     text-align: center;
-    border: 1px black solid;
+    border: var(--halved-border-width), var(--border-color), var(--border-style);
+    border-radius: var(--border-radius);
 }
 [data-separate-todos] {
     margin: 1rem 0;
     border-width: 0.5rem;
+    border: var(--border-width), var(--border-color), dashed;
 }
 
 /* todo */
@@ -84,6 +106,9 @@ body,
     width: 70vw;
     height: 90vh;
     overflow-y: scroll;
+    scrollbar-width: none;
+    border: var(--halved-border-width), var(--border-color), var(--border-style);
+    border-radius: var(--border-radius);
 }
 [data-todo-card] > * {
     border: 0.15vw black solid;
@@ -93,6 +118,14 @@ body,
     text-align: center;
     box-sizing: border-box;
     margin: 0.5rem;
+    background-color: var(--primary-background-color);
+    color: var(--text-color);
+    border: var(--quater-border-width), var(--border-color), var(--border-style);
+    border-radius: var(--border-radius);
+}
+[data-todo-card] > *::placeholder {
+    color: var(--text-color);
+    opacity: 0.5;
 }
 
 [data-todo-title] {
@@ -124,8 +157,6 @@ body,
     gap: 5vw;
     padding-top: 1rem;
     justify-content: space-between;
-}
-[data-button-container] > * {
 }
 [data-save-todo] {
     min-width: 15vw;
