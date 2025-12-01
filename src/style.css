@@ -68,6 +68,7 @@ button {
 [data-project-deleter] {
 }
 
+
 [data-is-done] {
     display: flex;
     gap: 1rem;
