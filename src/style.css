@@ -69,7 +69,6 @@ button {
 [data-todo-creator],
 [data-project-deleter] {
 }
-
 [data-is-done] {
     display: flex;
     gap: 1rem;
