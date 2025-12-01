@@ -6,8 +6,8 @@ body,
 }
 :root {
     --text-color: black;
-    --primary-background-color: rgb(219, 174, 89);
-    --card-color: rgb(156, 122, 59);
+    --primary-background-color: rgb(156, 122, 59);
+    --card-color: rgb(219, 174, 89);
     --border-width: 0.5vw;
     --halved-border-width: calc(var(--border-width) / 2);
     --quater-border-width: calc(var(--halved-border-width) / 2);
