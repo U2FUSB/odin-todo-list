@@ -9,7 +9,7 @@
         "dev": "webpack serve --open-app-name 'chromium' --config webpack.dev.js",
         "build-and-dev": "npm run build & npm run dev",
         "setup-gh-pages": "git commit -m 'FEAT: Setup github page' && git branch gh-pages && git checkout gh-pages && git merge main --no-edit && npm run build && git add dist -f && git commit -m 'Deployment commit' && git subtree push --prefix dist origin gh-pages && git checkout main",
-        "deploy": "git subtree push --prefix dist origin gh-pages",
+        "deploy": "git checkout gh-pages && git merge main --no-edit && npm run build && git add dist -f && git commit -m 'Deployment commit' && git subtree push --prefix dist origin gh-pages && git checkout main",
         "postinstall": "npm update --save && echo 'Updated npm packages'"
     },
     "repository": {
