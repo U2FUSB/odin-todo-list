@@ -72,11 +72,6 @@ button {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
-}
-[data-is-done="false"] {
-}
-[data-is-done="true"] {
-}
 [data-todo] {
     width: 10rem;
     padding: 5rem 1rem;
