@@ -6,12 +6,13 @@ body,
 }
 :root {
     --text-color: black;
-    --primary-background-color: rgb(133, 131, 255);
+    --primary-background-color: rgb(219, 174, 89);
+    --card-color: rgb(156, 122, 59);
     --border-width: 0.5vw;
     --halved-border-width: calc(var(--border-width) / 2);
     --quater-border-width: calc(var(--halved-border-width) / 2);
     --border-style: outset;
-    --border-color: rgb(2, 4, 146);
+    --border-color: rgb(255, 255, 255);
     --border-radius: 1rem;
 }
 body {
@@ -20,7 +21,7 @@ body {
 button {
     border: var(--halved-border-width), var(--border-color), var(--border-style);
     border-radius: var(--border-radius);
-    background-color: var(--primary-background-color);
+    background-color: var(--card-color);
 }
 /* projects */
 [data-page-element="projects"] {
@@ -40,6 +41,7 @@ button {
     justify-content: center;
     margin-bottom: 1rem;
     margin-top: 1rem;
+    background-color: var(--card-color);
     border: var(--border-width), var(--border-color), var(--border-style);
     border-radius: var(--border-radius);
 }
@@ -68,7 +70,6 @@ button {
 [data-project-deleter] {
 }
 
-
 [data-is-done] {
     display: flex;
     gap: 1rem;
@@ -81,6 +82,7 @@ button {
     text-align: center;
     border: var(--halved-border-width), var(--border-color), var(--border-style);
     border-radius: var(--border-radius);
+    background-color: var(--card-color);
 }
 [data-separate-todos] {
     margin: 1rem 0;
@@ -115,7 +117,7 @@ button {
     text-align: center;
     box-sizing: border-box;
     margin: 0.5rem;
-    background-color: var(--primary-background-color);
+    background-color: var(--card-color);
     color: var(--text-color);
     border: var(--quater-border-width), var(--border-color), var(--border-style);
     border-radius: var(--border-radius);
