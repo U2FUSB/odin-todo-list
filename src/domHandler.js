@@ -12,9 +12,9 @@ const domSections = (function () {
         document.addEventListener("keydown", (ev) => switchUi(ev.key));
         pageBackArrow.addEventListener("click", () => switchUi("Escape"));
     })();
-    function clearUi() {
-        while (dynamicContentElement.hasChildNodes()) {
-            clearChildNode(dynamicContentElement.firstChild);
+    function clearUi(elementToClear) {
+        while (elementToClear.hasChildNodes()) {
+            clearChildNode(elementToClear.firstChild);
         }
         function clearChildNode(childNode) {
             while (childNode.hasChildNodes()) {
@@ -34,23 +34,23 @@ const domSections = (function () {
                     const projectName = document.querySelector([
                         "[data-todo-project]",
                     ]);
-                    initialiseProjectsContentUi(projectName.value);
+                    initialiseProjectsContentUi(projectName.textContent);
                     break;
             }
         }
     }
     function initialiseProjectsUi() {
-        clearUi();
+        clearUi(dynamicContentElement);
         dynamicContentElement.appendChild(domSections.projectsPageElement);
         getAllProjects();
     }
     function initialiseProjectsContentUi(project) {
-        clearUi();
+        clearUi(dynamicContentElement);
         dynamicContentElement.appendChild(projectContentPageElement);
         getTodosOfProject(project);
     }
     function initialiseTodoUi(todo) {
-        clearUi();
+        clearUi(dynamicContentElement);
         dynamicContentElement.appendChild(todoPageElement);
         getTodo(todo);
     }
@@ -159,7 +159,7 @@ function displayTodoUi(todo) {
     const pageBackArrow = domSections.pageBackArrow;
     const todoCard = document.createElement("form");
     const title = document.createElement("input");
-    const project = document.createElement("input");
+    const project = document.createElement("p");
     const description = document.createElement("textarea");
     const isDone = document.createElement("p");
     const buttonContainer = document.createElement("div");
@@ -180,7 +180,7 @@ function displayTodoUi(todo) {
     deleteTodoSwitch.dataset.deleteTodo = "";
 
     title.value = todo.getTitle();
-    project.value = todo.getProject();
+    project.textContent = todo.getProject();
     description.value = todo.getDescription();
     description.placeholder = "Add your Description here";
     isDone.textContent = boolValueOfIsDone ? "Done" : "Not Done";
@@ -192,10 +192,14 @@ function displayTodoUi(todo) {
         isDone.dataset.todoIsDone = boolValueOfIsDone;
         isDone.textContent = boolValueOfIsDone ? "Done" : "Not Done";
     });
+    project.addEventListener("click", () => {
+        project.classList.toggle("show");
+        getAllProjects(true);
+    });
 
     saveTodoSwitch.addEventListener("click", () => {
         updateTodoProperty(todo.getTitle(), "title", title.value);
-        updateTodoProperty(todo.getTitle(), "project", project.value);
+        updateTodoProperty(todo.getTitle(), "project", project.textContent);
         updateTodoProperty(todo.getTitle(), "description", description.value);
         updateTodoProperty(todo.getTitle(), "isDone", boolValueOfIsDone);
     });
@@ -212,6 +216,26 @@ function displayTodoUi(todo) {
     todoCard.append(title, project, description, isDone);
     buttonContainerWithArrow.append(pageBackArrow, buttonContainer);
     buttonContainer.append(saveTodoSwitch, deleteTodoSwitch);
+}
+function displayProjectsPopup(projects) {
+    const pageElement = domSections.todoPageElement;
+    const projectsMenuChecker = document.querySelector(
+        "[data-projects-menu-popup]"
+    );
+    if (projectsMenuChecker) {
+        domSections.clearUi(projectsMenuChecker);
+        projectsMenuChecker.parentNode.removeChild(projectsMenuChecker);
+        console.log(1)
+    } else {
+        const projectsMenu = document.createElement("div");
+        projectsMenu.dataset.projectsMenuPopup = "";
+        projects.forEach((project) => {
+            const projectElement = document.createElement("p");
+            projectElement.textContent = project.getName();
+            projectsMenu.append(projectElement);
+        });
+        pageElement.append(projectsMenu);
+    }
 }
 
 function createTodo(title, project) {
@@ -258,8 +282,12 @@ function getProject(name) {
 function getTodosOfProject(name) {
     publishIfArrayNotEmptyOrUndefined("todosOfProjectQueried", name, [name]);
 }
-function getAllProjects() {
-    pubsub.publish("allProjectsQueried");
+function getAllProjects(forPopup) {
+    if (forPopup) {
+        pubsub.publish("allProjectsQueriedForPopup");
+    } else {
+        pubsub.publish("allProjectsQueried");
+    }
 }
 function updateProject(name, newName) {
     const projectUpdateObject = { name, newName };
@@ -288,5 +316,8 @@ function publishIfArrayNotEmptyOrUndefined(eventName, data, arrayToCheck) {
 pubsub.subscribe("todoDisplayed", displayTodoUi);
 pubsub.subscribe("allProjectsDisplayed", displayProjectUi);
 pubsub.subscribe("todosOfProjectDisplayed", displayTodosInProjectUi);
+pubsub.subscribe("allProjectsDisplayedForPopup", displayProjectsPopup);
 
 domSections.initialiseProjectsUi();
+
+domSections.initialiseTodoUi("myTodo11");

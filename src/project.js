@@ -23,7 +23,10 @@ function getProject(name) {
     pubsub.publish("projectDisplayed", project);
 }
 function getAllProjects() {
-    pubsub.publish("allProjectsDisplayed", [...projects]);
+    pubsub.publish("allProjectsDisplayed", projects);
+}
+function getAllProjectsForPopup() {
+    pubsub.publish("allProjectsDisplayedForPopup", projects);
 }
 function getTodosOfProject(name) {
     const project = findProjectByName(name);
@@ -59,5 +62,6 @@ pubsub.subscribe("allProjectsQueried", getAllProjects);
 pubsub.subscribe("todosOfProjectQueried", getTodosOfProject);
 pubsub.subscribe("projectUpdated", updateProject);
 pubsub.subscribe("projectDeleted", deleteProject);
+pubsub.subscribe("allProjectsQueriedForPopup", getAllProjectsForPopup);
 
 createProject("default");
