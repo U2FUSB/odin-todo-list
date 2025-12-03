@@ -202,6 +202,7 @@ function displayTodoUi(todo) {
         updateTodoProperty(todo.getTitle(), "project", project.textContent);
         updateTodoProperty(todo.getTitle(), "description", description.value);
         updateTodoProperty(todo.getTitle(), "isDone", boolValueOfIsDone);
+        domSections.initialiseProjectsContentUi(project.textContent);
     });
     deleteTodoSwitch.addEventListener("click", () => {
         const descision = prompt(
@@ -225,7 +226,7 @@ function displayProjectsPopup(projects) {
     if (projectsMenuChecker) {
         domSections.clearUi(projectsMenuChecker);
         projectsMenuChecker.parentNode.removeChild(projectsMenuChecker);
-        console.log(1)
+        console.log(1);
     } else {
         const projectsMenu = document.createElement("div");
         projectsMenu.dataset.projectsMenuPopup = "";
